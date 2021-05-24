@@ -99,9 +99,34 @@ components:
       name: api_key
       in: header
   schemas:
+    LegalIdentification:
+      title: Legal Identification
+      description: So CMND/Passport
+      type: object
+      properties:
+        number:
+          type: string
+        issuedOn:
+          type: date
+        issuedAt:
+          type: string
+          example: Cong An Quan 3
+    ContactInfo:
+      title: Contact Info
+      description: Thong tin lien lac
+      type: object
+      properties:
+        address:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+
     Application:
-      title: a Pet
-      description: A pet for sale in the pet store
+      title: an application
+      description: An application for a prospective student to submit
       type: object
       required:
         - name
@@ -110,11 +135,50 @@ components:
         id:
           type: integer
           format: int64
-        category:
-          $ref: '#/components/schemas/Category'
+        legalIdentification:
+          $ref: '#/components/schemas/LegalIdentification'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo'
+
         name:
           type: string
-          example: doggie
+          example: Le Thanh Binh
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        dateOfBirth:
+          type: string
+          format: date
+        placeOfBirth:
+          type: string
+          example: Ha Tinh
+        religiousStatus:
+          type: string
+          enum:
+            - PRIEST
+            - SEMINARIST
+            - MONK_OR_NUN
+            - LAY_PERSON
+        religiousFormationStageForMonkOrNun:
+          type: string
+          enum:
+            - POSTULANT
+            - NOVITIATE
+            - TEMPORARILY_PROFESSED
+            - PERPETUALLY_PROFESSED
+        diocese:
+          type: string
+        parish:
+          type: string
+        monastery:
+          type: string
+        nationality:
+          type: string
+        ethnicity:
+          type: string
+
         photoUrls:
           type: array
           xml:
@@ -137,7 +201,7 @@ components:
             - pending
             - sold
       xml:
-        name: Pet
+        name: Application
     ApiResponse:
       title: An uploaded response
       description: Describes the result of uploading an image resource
