@@ -236,13 +236,6 @@ components:
             wrapped: true
           items:
             type: string
-        tags:
-          type: array
-          xml:
-            name: tag
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Tag'
         status:
           type: string
           description: pet status in the store
