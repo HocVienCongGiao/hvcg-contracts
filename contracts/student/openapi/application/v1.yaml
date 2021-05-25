@@ -123,6 +123,47 @@ components:
           format: email
         phone:
           type: string
+    Language:
+      title: Language spoken
+      description: Ngon ngu
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+            - ELEMENTARY
+            - INTERMEDIATE
+            - ADVANCED
+        name:
+          type: string
+    Education:
+      title: Qualifications
+      description: Da hoan thanh chuong trinh
+      type: object
+      properties:
+        level:
+          type: string
+          enum:
+            - SECONDARY
+            - UNDERGRADUATE
+            - MASTER
+            - DOCTORATE
+    StudyProgram:
+      title: Study Program to enrol
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        level:
+          type: string
+          enum:
+            - FOUNDATION
+            - BACHELOR
+            - MASTER
+            - UNKNOWN
 
     Application:
       title: an application
@@ -139,7 +180,16 @@ components:
           $ref: '#/components/schemas/LegalIdentification'
         contactInfo:
           $ref: '#/components/schemas/ContactInfo'
-
+        languages:
+          type: array
+          xml:
+            name: languages
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Language'
+        program:
+          type: object
+          $ref: '#/components/schemas/StudyProgram'
         name:
           type: string
           example: Le Thanh Binh
