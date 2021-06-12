@@ -1,0 +1,49 @@
+--- 
+version: 2.1
+orbs: 
+  browser-tools: circleci/browser-tools@1.1.3
+  aws-s3: circleci/aws-s3@2.0.0
+jobs:
+  push_contracts: 
+    docker: 
+      - 
+        image: "cimg/node:10.24.0"
+    steps:
+      - checkout
+      - 
+        run: 
+          command: "echo ${CIRCLE_BRANCH}"
+          name: "Show current branch"
+      - 
+        restore_cache: 
+          keys: 
+            - "v1-dependencies-{{ checksum \"package-lock.json\" }}"
+            - v1-dependencies-
+      - 
+        run: 
+          command: "cp -R ./contracts ./swaggerui/"
+      - 
+        aws-s3/sync:
+          arguments: |
+              --delete \
+              --acl public-read \
+              --cache-control 'max-age=604800' \
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_DEFAULT_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: swaggerui
+          to: s3://swaggerui.hocvienconggiao.com        
+    working_directory: ~/hvcg-contracts    
+
+workflows: 
+  push: 
+    jobs: 
+      - push_contracts:
+          context: build_push
+          filters: 
+            branches: 
+              only: 
+                - main           
+                # - /test\/.*/
+                # The above line of code causes the job push_dev to only be run when the branch being built starts with "test/" in it.
+  version: 2
