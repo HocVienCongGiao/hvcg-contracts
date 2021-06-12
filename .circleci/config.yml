@@ -3,7 +3,11 @@ version: 2.1
 orbs: 
   browser-tools: circleci/browser-tools@1.1.3
   aws-s3: circleci/aws-s3@2.0.0
+  rust: circleci/rust@1.5.0
+  
 jobs:
+  build_crate:
+  
   push_contracts: 
     docker: 
       - 
@@ -37,7 +41,14 @@ jobs:
 
 workflows: 
   push: 
-    jobs: 
+    jobs:
+      - build_crate:
+          context: build_push
+          filters: 
+            branches: 
+              only: 
+                - main           
+          
       - push_contracts:
           context: build_push
           filters: 
