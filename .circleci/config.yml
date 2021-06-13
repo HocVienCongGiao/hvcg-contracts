@@ -123,13 +123,13 @@ workflows:
                 - main           
           requires:
             - generate_crate
-      # - push_contracts:
-      #     context: build_push
-      #     filters: 
-      #       branches: 
-      #         only: 
-      #           - main           
-      #     requires:
-      #       - publish_crate
+      - push_contracts:
+          context: build_push
+          filters: 
+            branches: 
+              only: 
+                - main           
+          requires:
+            - publish_crate
                 
   version: 2
