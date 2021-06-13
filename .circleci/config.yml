@@ -6,8 +6,42 @@ orbs:
   rust: circleci/rust@1.5.0
   
 jobs:
-  build_crate:
-  
+  generate_crate:
+    docker:
+      - image: cimg/openjdk:16.0.0
+    steps:
+      - checkout
+      - run: "mkdir workspace"
+      - 
+        run:
+          command: "java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity/v1.yaml -g rust-server -o workspace/rust_api_server_example_openapi_entity --package-name=hvcg_example_openapi_entity"
+          name: "Generate Rust source"
+
+      # Persist the specified paths (workspace/rust_api_server_example_openapi_entity) into the workspace for use in downstream job.
+      - 
+        persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - rust_api_server_example_openapi_entity
+
+    working_directory: ~/hvcg-contracts
+
+  publish_crate:
+    docker:
+      - image: cimg/rust:1.52.1
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: workspace
+
+      - run: |
+          cat workspace/.cargo.config.toml
+      
+    working_directory: ~/hvcg-contracts
+
   push_contracts: 
     docker: 
       - 
@@ -42,19 +76,27 @@ jobs:
 workflows: 
   push: 
     jobs:
-      - build_crate:
+      - generate_crate:
           context: build_push
           filters: 
             branches: 
               only: 
                 - main           
-          
+      - publish_crate:
+          context: build_push
+          filters: 
+            branches: 
+              only: 
+                - main           
+          requires:
+            - generate_crate
       - push_contracts:
           context: build_push
           filters: 
             branches: 
               only: 
                 - main           
-                # - /test\/.*/
-                # The above line of code causes the job push_dev to only be run when the branch being built starts with "test/" in it.
+          requires:
+            - publish_crate
+                
   version: 2
