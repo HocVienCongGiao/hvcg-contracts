@@ -38,7 +38,7 @@ jobs:
           at: workspace
 
       - run: |
-          cat workspace/.cargo.config.toml
+          cat workspace/rust_api_server_example_openapi_entity/.cargo.config.toml
       
     working_directory: ~/hvcg-contracts
 
