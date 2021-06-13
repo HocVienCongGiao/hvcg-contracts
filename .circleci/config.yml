@@ -40,7 +40,7 @@ jobs:
 
       - run: |
           cd workspace/rust-openapi/rust_api_server_example_openapi_entity
-          cargo publish --registry artifactory
+          cargo publish --registry artifactory --token
       
     working_directory: ~/hvcg-contracts
 
