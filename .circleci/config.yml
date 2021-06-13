@@ -38,7 +38,8 @@ jobs:
           at: workspace
 
       - run: |
-          ls workspace/rust_api_server_example_openapi_entity
+          cd workspace/rust_api_server_example_openapi_entity
+          cargo publish --registry artifactory
       
     working_directory: ~/hvcg-contracts
 
