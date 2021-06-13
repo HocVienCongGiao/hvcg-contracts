@@ -54,13 +54,13 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y libssl-dev
       - run:
-          command: 
+          command: |
             files=`ls workspace/rust-openapi`
             for file in $files; do
             filename=$(basename $file)
             entity_name=${filename%.*}
             echo "Entity NAME is " + $entity_name
-              
+            
             cd ~/hvcg-contracts/workspace/rust-openapi/$filename
             cargo package
             curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/hvcg_${filename}-1.0.0.crate" -T ./target/package/hvcg_${filename}-1.0.0.crate
