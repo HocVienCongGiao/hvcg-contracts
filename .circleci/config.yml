@@ -41,7 +41,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y libssl-dev
       - run: |
-          cd workspace/rust-openapi/rust_api_server_example_openapi_entity    
+          cd workspace/rust-openapi/rust_api_server_example_openapi_entity
           cargo package  
           curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_example_openapi_entity/hvcg_example_openapi_entity-1.0.0.crate" -T ./target/package/hvcg_example_openapi_entity-1.0.0.crate
       
