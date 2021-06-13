@@ -53,20 +53,19 @@ jobs:
       - run: |
           sudo apt-get update -y
           sudo apt-get install -y libssl-dev
-      - run: |
-          files=`ls workspace/rust-openapi`
-          for file in $files; do
-          filename=$(basename $file)
-          entity_name=${filename%.*}
-          echo "Entity NAME is " + $entity_name
-          echo "yes"; 
-          bounded_context=$(basename $(dirname $(dirname $file)))
-          echo "Bounded Context name is " + $bounded_context
-            
-          cd workspace/rust-openapi/$bounded_context_openapi_$entity_name
-          cargo package
-          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${bounded_context}_openapi_${entity_name}/hvcg_${bounded_context}_openapi_${entity_name}-1.0.0.crate" -T ./target/package/hvcg_${bounded_context}_openapi_${entity_name}-1.0.0.crate
-          done
+      - run:
+          command: 
+            files=`ls workspace/rust-openapi`
+            for file in $files; do
+            filename=$(basename $file)
+            entity_name=${filename%.*}
+            echo "Entity NAME is " + $entity_name
+              
+            cd ~/hvcg-contracts/workspace/rust-openapi/$filename
+            cargo package
+            curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/hvcg_${filename}-1.0.0.crate" -T ./target/package/hvcg_${filename}-1.0.0.crate
+            done
+          name: "Publish crate"
       
     working_directory: ~/hvcg-contracts
 
