@@ -12,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: "mkdir workspace"
+      - run: "cp .cargo/config.toml ./workspace/.cargo"
       - 
         run:
           command: "java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity/v1.yaml -g rust-server -o workspace/rust_api_server_example_openapi_entity --package-name=hvcg_example_openapi_entity"
