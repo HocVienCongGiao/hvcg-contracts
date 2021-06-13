@@ -13,11 +13,23 @@ jobs:
       - checkout
       - run: "mkdir -p workspace/rust-openapi/.cargo"
       - run: "cp .cargo/config.toml ./workspace/rust-openapi/.cargo"
-      - run: "git diff-tree --no-commit-id --name-only -r HEAD"
+      - run:
+          command: |
+            files=`git diff-tree --no-commit-id --name-only -r HEAD`
+            for file in $files; do
+            if [[ $file == contracts* ]]; then
+            filename=$(basename $file)
+            entity_name=${filename%.*}
+            echo "Entity NAME is " + $entity_name
+            echo "yes"; 
+            bounded_context=$(basename $(dirname $(dirname $file)))
+            echo "Bounded Context name is " + $bounded_context
+            java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/$bounded_context/openapi/$entity_name.yaml -g rust-server -o workspace/rust-openapi/$bounded_context_openapi_$entity_name --package-name=hvcg_$bounded_context_openapi_$entity_name
+            fi
+            done
+          name: "Generate Rust sources"
       - 
-        run:
-          command: "java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity.yaml -g rust-server -o workspace/rust-openapi/rust_api_server_example_openapi_entity --package-name=hvcg_example_openapi_entity"
-          name: "Generate Rust source"
+        run: "ls workspace/rust-openapi"
 
       # Persist the specified paths (workspace/rust_api_server_example_openapi_entity) into the workspace for use in downstream job.
       - 
@@ -42,9 +54,19 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y libssl-dev
       - run: |
-          cd workspace/rust-openapi/rust_api_server_example_openapi_entity
-          cargo package  
-          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_example_openapi_entity/hvcg_example_openapi_entity-1.0.0.crate" -T ./target/package/hvcg_example_openapi_entity-1.0.0.crate
+          files=`ls workspace/rust-openapi`
+          for file in $files; do
+          filename=$(basename $file)
+          entity_name=${filename%.*}
+          echo "Entity NAME is " + $entity_name
+          echo "yes"; 
+          bounded_context=$(basename $(dirname $(dirname $file)))
+          echo "Bounded Context name is " + $bounded_context
+            
+          cd workspace/rust-openapi/$bounded_context_openapi_$entity_name
+          cargo package
+          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_$bounded_context_openapi_$entity_name/hvcg_$bounded_context_openapi_$entity_name-1.0.0.crate" -T ./target/package/hvcg_$bounded_context_openapi_$entity_name-1.0.0.crate
+          done
       
     working_directory: ~/hvcg-contracts
 
