@@ -63,7 +63,13 @@ jobs:
             
             cd ~/hvcg-contracts/workspace/rust-openapi/$filename
             cargo package
-            curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/hvcg_${filename}-1.0.5.crate" -T ./target/package/hvcg_${filename}-1.0.5.crate
+
+            crate_files=`ls ./target/package`
+            for crate_file in $crate_files; do 
+            crate_name=${crate_file%.crate}
+            curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/${crate_name}.crate" -T ./target/package/${crate_name}.crate
+            break
+            done
             done
           name: "Publish crate"
       
