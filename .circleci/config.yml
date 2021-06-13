@@ -37,10 +37,12 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: workspace
-
       - run: |
-          cd workspace/rust-openapi/rust_api_server_example_openapi_entity
-          cargo publish --registry artifactory --token $CARGO_REGISTRIES_ARTIFACTORY_TOKEN
+          sudo apt-get update -y
+          sudo apt-get install -y libssl-dev
+      - run: |
+          cd workspace/rust-openapi/rust_api_server_example_openapi_entity      
+          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_example_openapi_entity/hvcg_example_openapi_entity-1.0.0.crate" -T hvcg_example_openapi_entity-1.0.0.crate
       
     working_directory: ~/hvcg-contracts
 
