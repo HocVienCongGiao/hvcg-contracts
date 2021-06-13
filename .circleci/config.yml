@@ -11,11 +11,11 @@ jobs:
       - image: cimg/openjdk:16.0.0
     steps:
       - checkout
-      - run: "mkdir workspace"
-      - run: "cp .cargo/config.toml ./workspace/.cargo"
+      - run: "mkdir -p workspace/rust-openapi/.cargo"
+      - run: "cp .cargo/config.toml ./workspace/rust-openapi/.cargo"
       - 
         run:
-          command: "java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity/v1.yaml -g rust-server -o workspace/rust_api_server_example_openapi_entity --package-name=hvcg_example_openapi_entity"
+          command: "java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity/v1.yaml -g rust-server -o workspace/rust-openapi/rust_api_server_example_openapi_entity --package-name=hvcg_example_openapi_entity"
           name: "Generate Rust source"
 
       # Persist the specified paths (workspace/rust_api_server_example_openapi_entity) into the workspace for use in downstream job.
@@ -26,7 +26,7 @@ jobs:
           root: workspace
           # Must be relative path from root
           paths:
-            - rust_api_server_example_openapi_entity
+            - rust-openapi
 
     working_directory: ~/hvcg-contracts
 
@@ -39,7 +39,7 @@ jobs:
           at: workspace
 
       - run: |
-          cd workspace/rust_api_server_example_openapi_entity
+          cd workspace/rust-openapi/rust_api_server_example_openapi_entity
           cargo publish --registry artifactory
       
     working_directory: ~/hvcg-contracts
