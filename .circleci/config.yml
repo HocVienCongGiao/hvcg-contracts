@@ -38,7 +38,7 @@ jobs:
           at: workspace
 
       - run: |
-          ls workspace
+          ls workspace/rust_api_server_example_openapi_entity
       
     working_directory: ~/hvcg-contracts
 
@@ -90,13 +90,13 @@ workflows:
                 - main           
           requires:
             - generate_crate
-      - push_contracts:
-          context: build_push
-          filters: 
-            branches: 
-              only: 
-                - main           
-          requires:
-            - publish_crate
+      # - push_contracts:
+      #     context: build_push
+      #     filters: 
+      #       branches: 
+      #         only: 
+      #           - main           
+      #     requires:
+      #       - publish_crate
                 
   version: 2
