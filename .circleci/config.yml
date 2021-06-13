@@ -24,7 +24,7 @@ jobs:
             echo "yes"; 
             bounded_context=$(basename $(dirname $(dirname $file)))
             echo "Bounded Context name is " + $bounded_context
-            java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/$bounded_context/openapi/$entity_name.yaml -g rust-server -o workspace/rust-openapi/$bounded_context_openapi_$entity_name --package-name=hvcg_$bounded_context_openapi_$entity_name
+            java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o workspace/rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name}
             fi
             done
           name: "Generate Rust sources"
@@ -65,7 +65,7 @@ jobs:
             
           cd workspace/rust-openapi/$bounded_context_openapi_$entity_name
           cargo package
-          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_$bounded_context_openapi_$entity_name/hvcg_$bounded_context_openapi_$entity_name-1.0.0.crate" -T ./target/package/hvcg_$bounded_context_openapi_$entity_name-1.0.0.crate
+          curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${bounded_context}_openapi_${entity_name}/hvcg_${bounded_context}_openapi_${entity_name}-1.0.0.crate" -T ./target/package/hvcg_${bounded_context}_openapi_${entity_name}-1.0.0.crate
           done
       
     working_directory: ~/hvcg-contracts
