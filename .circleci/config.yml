@@ -11,6 +11,7 @@ jobs:
       - image: cimg/openjdk:16.0.0
     steps:
       - checkout
+      - run: "mkdir -p workspace/rust-openapi/.cargo"      
       - run:
           command: |
             files=`git diff-tree --no-commit-id --name-only -r HEAD`
