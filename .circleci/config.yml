@@ -129,7 +129,5 @@ workflows:
             branches: 
               only: 
                 - main           
-          requires:
-            - publish_crate
                 
   version: 2
