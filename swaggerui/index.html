@@ -39,7 +39,19 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "https://petstore.swagger.io/v2/swagger.json",
+        urls: [
+          {
+            "url":"https://petstore.swagger.io/v2/swagger.json",
+           "name":"Sample Petstore"
+          {
+            "url":"/contracts/activities/openapi/activity/v2.yaml",
+            "name":"activities/activity/v2.yaml"
+          },
+          {
+            "url":"/contracts/activities/openapi/activityoperations/v2.yaml",
+           "name":"activities/activityoperations/v2.yaml"
+          },
+        ],
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
