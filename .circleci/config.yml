@@ -67,7 +67,8 @@ jobs:
             crate_files=`ls ./target/package`
             for crate_file in $crate_files; do 
             crate_name=${crate_file%.crate}
-            curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/${crate_name}.crate" -T ./target/package/${crate_name}.crate
+            # curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/${crate_name}.crate" -T ./target/package/${crate_name}.crate
+            cargo publish --token $CARGO_DEFAULT_REGISTRY_TOKEN
             break
             done
             done
