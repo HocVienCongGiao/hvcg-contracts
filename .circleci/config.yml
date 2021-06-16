@@ -96,8 +96,8 @@ jobs:
            echo '
              [
                {
-                 url: /contracts/biography/openapi/saint.yaml,
-                 name: nhutming
+                 \"url\": \"/contracts/biography/openapi/saint.yaml\",
+                 \"name\": \"biography\"
                }
              ]
            ' >> contracts_ci.json
