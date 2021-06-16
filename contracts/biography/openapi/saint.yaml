@@ -10,10 +10,10 @@ servers:
   
 info:
   description: >-
-    This is a sample server Saintstore server. For this sample, you can use the api key
+    This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
   version: 1.0.6
-  title: OpenAPI Saintstore
+  title: OpenAPI Saint info
   license:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -21,18 +21,18 @@ tags:
   - name: saint
     description: Everything about your Saints
 paths:
-  /public-api/saints:
+  /mutation-api/saints:
     post:
       tags:
-        - student-saint
-      summary: Prospective Student applying for a new course
+        - saint
+      summary: Add new saint
       description: ''
       operationId: addSaint
       responses:
         '200':
           description: successful operation
           content:
-            saint/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Saint'
         '405':
@@ -40,24 +40,14 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SaintRequest'
       security:
-        - saintstore_auth:
-            - 'write:saints'
-            - 'read:saints'
-  /public-api/saints/{saintId}:
+        - saint_auth
+  /query-api/saints:
     get:
       tags:
-        - saint
-      summary: Find saint by ID
-      description: Returns a single saint
-      operationId: getSaintById
-      parameters:
-        - name: saintId
-          in: path
-          description: ID of saint to return
-          required: true
-          schema:
-            type: integer
-            format: int64
+        - saints
+      summary: Find all saints
+      description: Returns all saints
+      operationId: getAllSaints
       responses:
         '200':
           description: successful operation
@@ -69,25 +59,52 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-    put:
+  /query-api/saints/{id}:
+    get:
       tags:
-        - student-saint
-      summary: Update an existing saint
-      description: ''
-      operationId: updateSaint
+        - saint
+      summary: Find saint by ID
+      description: Returns a single saint
+      operationId: getSaintById
       parameters:
-        - name: saintId
+        - name: id
           in: path
-          description: ID of saint to update
+          description: ID of saint to return
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
       responses:
         '200':
           description: successful operation
           content:
-            saint/json:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saint'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Saint not found
+  /mutation-api/saints/{id}:
+    put:
+      tags:
+        - saint
+      summary: Update an existing saint
+      description: ''
+      operationId: updateSaint
+      parameters:
+        - name: id
+          in: path
+          description: ID of saint to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Saint'
         '400':
@@ -99,9 +116,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SaintRequest'
       security:
-        - saintstore_auth:
-            - 'write:saints'
-            - 'read:saints'
+        - saint_auth
     delete:
       tags:
         - saint
@@ -109,33 +124,26 @@ paths:
       description: ''
       operationId: deleteSaint
       parameters:
-        - name: api_key
-          in: header
-          required: false
-          schema:
-            type: string
-        - name: saintId
+        - name: id
           in: path
           description: Saint id to delete
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
       responses:
         '400':
           description: Invalid saint value
       security:
-        - saintstore_auth:
-            - 'write:saints'
-            - 'read:saints'
+        - saint_auth
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
 components:
   requestBodies:
-    UserArray:
+    SaintArray:
       content:
-        saint/json:
+        application/json:
           schema:
             type: array
             items:
@@ -144,42 +152,44 @@ components:
       required: true
     Saint:
       content:
-        saint/json:
+        application/json:
           schema:
             $ref: '#/components/schemas/Saint'
       description: Saint object that needs to be added to the database
       required: true
   securitySchemes:
-    saintstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'http://saintstore.swagger.io/api/oauth/dialog'
-          scopes:
-            'write:saints': modify saints in your account
-            'read:saints': read your saints
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    saint_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Saint:
       title: a Saint
-      description: Every student have a saint info
+      description: Saint info
       type: object
       required:
-        - name
-        - sex
+        - vietnameseName
+        - gender
       properties:
         id:
-          type: integer
-          format: int64
-        name:
           type: string
-          example: doggie
-        sex:
-          items:
-            type: string
-          example: male/female
+          format: uuid
+        englishName:
+          type: string
+          example: Andrew
+        frenchName:
+          type: string
+          example: André
+        latinName:
+          type: string
+          example: Andreas
+        vietnameseName:
+          type: string
+          example: Anrê
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
       xml:
         name: Saint
