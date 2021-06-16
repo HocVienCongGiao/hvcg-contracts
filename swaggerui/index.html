@@ -38,10 +38,7 @@
     window.onload = function () {
         // Begin Swagger UI call region
         const ui = SwaggerUIBundle({
-            urls: [{
-                "url":"/contracts/example/openapi/entity.yaml",
-                "name":"example"
-            }],
+            urls: contractInfo,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
@@ -60,7 +57,7 @@
 
     function getServiceContracts() {
         const request = new XMLHttpRequest();
-        request.open("GET", "../../hvcg-contracts/resources/contracts.json", false);
+        request.open("GET", "/contracts/contracts.json", false);
         request.send(null)
         const contractsJSONObject = JSON.parse(request.responseText);
         const array = [];
