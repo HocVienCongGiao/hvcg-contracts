@@ -33,11 +33,12 @@
 <script src="./swagger-ui-bundle.js" charset="UTF-8"></script>
 <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"></script>
 <script>
-    console.log(getServiceContracts())
+    var contractInfo = getServiceContracts()
+    console.log(contractInfo)
     window.onload = function () {
         // Begin Swagger UI call region
         const ui = SwaggerUIBundle({
-            urls: getServiceContracts(),
+            urls: contractInfo,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
