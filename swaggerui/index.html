@@ -57,10 +57,12 @@
 
     function getServiceContracts() {
         const request = new XMLHttpRequest();
+
         request.open("GET", "/contracts/contracts.json", false);
         request.send(null)
         const contractsJSONObject = JSON.parse(request.responseText);
         const contracts = [];
+
         for (const key in contractsJSONObject) {
             const item = contractsJSONObject[key];
             contracts.push({
