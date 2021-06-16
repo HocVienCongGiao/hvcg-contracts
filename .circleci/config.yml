@@ -97,15 +97,15 @@ jobs:
              [
                {
                  \"url\": \"/contracts/biography/openapi/saint.yaml\",
-                 \"name\": \"biography/saint.yaml\"
+                 \"name\": \"biography\/saint.yaml\"
                }
                {
                  \"url\": \"/contracts/example/openapi/entity.yaml\",
-                 \"name\": \"example/entity.yaml\"
+                 \"name\": \"example\/entity.yaml\"
                },
                {
                  \"url\": \"/contracts/student/openapi/application/v1.yaml\",
-                 \"name\": \"student/application/v1.yaml\"
+                 \"name\": \"student\/application\/v1.yaml\"
                }
              ]
            ' >> contracts.json
