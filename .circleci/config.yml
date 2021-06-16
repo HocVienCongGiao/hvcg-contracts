@@ -112,7 +112,7 @@ jobs:
                  \"name\": \"biography\"
                }
              ]
-           ' >> contracts_ci.json
+           ' >> contracts.json
            && cp ./contracts.json ./contracts/contracts.json
            "
       -
