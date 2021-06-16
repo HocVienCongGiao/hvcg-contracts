@@ -97,7 +97,7 @@ jobs:
              [
                {
                  \"url\": \"/contracts/biography/openapi/saint.yaml\",
-                 \"name\": \"biography\"
+                 \"name\": \"biography/saint.yaml\"
                }
              ]
            ' >> contracts.json
