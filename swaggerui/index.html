@@ -33,7 +33,7 @@
 <script src="./swagger-ui-bundle.js" charset="UTF-8"></script>
 <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"></script>
 <script>
-    var contractInfo = getServiceContracts()
+    const contractInfo = getServiceContracts();
     console.log(contractInfo)
     window.onload = function () {
         // Begin Swagger UI call region
@@ -57,19 +57,18 @@
 
     function getServiceContracts() {
         const request = new XMLHttpRequest();
-        request.open("GET", "/contracts/contracts.json", false);
+        request.open("GET", "/contracts/contracts_ci.json", false);
         request.send(null)
         const contractsJSONObject = JSON.parse(request.responseText);
-        const array = [];
+        const contracts = [];
         for (const key in contractsJSONObject) {
             const item = contractsJSONObject[key];
-            array.push({
+            contracts.push({
                 url: item.url,
                 name: item.name
             })
         }
-        console.log(array)
-        return array
+        return contracts
     }
 </script>
 </body>

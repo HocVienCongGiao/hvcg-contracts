@@ -93,7 +93,21 @@ jobs:
       - 
         run: 
           command: "cp -R ./contracts ./swaggerui/"
-      - 
+      -
+        run:
+          name: "Build dynamic contracts"
+          command: "
+          echo '
+            [
+              {
+                url: /contracts/biography/openapi/saint.yaml,
+                name: nhutming
+              }
+            ]
+          ' >> contracts_ci.json
+          && cp -R ./contracts_ci.json ./swaggerui/contracts_ci.json
+          "
+      -
         aws-s3/sync:
           arguments: |
               --delete \
