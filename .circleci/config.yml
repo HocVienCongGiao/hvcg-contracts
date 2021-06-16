@@ -96,8 +96,8 @@ jobs:
            echo '
              [
                {
-                 \"url\": \"/contracts\/biography\/openapi\/saint.yaml\",
-                 \"name\": \"biography\/saint.yaml\"
+                 \"url\": \"/contracts/biography/openapi/saint.yaml\",
+                 \"name\": \"biography\"
                }
              ]
            ' >> contracts.json
