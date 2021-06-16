@@ -98,7 +98,7 @@ jobs:
                {
                  \"url\": \"/contracts/biography/openapi/saint.yaml\",
                  \"name\": \"biography\/saint.yaml\"
-               }
+               },
                {
                  \"url\": \"/contracts/example/openapi/entity.yaml\",
                  \"name\": \"example\/entity.yaml\"
