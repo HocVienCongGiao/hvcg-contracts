@@ -90,23 +90,22 @@ jobs:
           keys: 
             - "v1-dependencies-{{ checksum \"package-lock.json\" }}"
             - v1-dependencies-
-      - 
-        run: 
-          command: "cp -R ./contracts ./swaggerui/"
-      -
-        run:
+      - run:
           name: "Build dynamic contracts"
           command: "
-          echo '
-            [
-              {
-                url: /contracts/biography/openapi/saint.yaml,
-                name: nhutming
-              }
-            ]
-          ' >> contracts_ci.json
-          && cp -R ./contracts_ci.json ./swaggerui/contracts_ci.json
-          "
+           echo '
+             [
+               {
+                 url: /contracts/biography/openapi/saint.yaml,
+                 name: nhutming
+               }
+             ]
+           ' >> contracts_ci.json
+           && cp ./contracts_ci.json ./contracts/contracts_ci.json
+           "
+      -
+        run: 
+          command: "cp -R ./contracts ./swaggerui/"
       -
         aws-s3/sync:
           arguments: |
