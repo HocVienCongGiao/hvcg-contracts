@@ -113,7 +113,7 @@ jobs:
                }
              ]
            ' >> contracts_ci.json
-           && cp ./contracts_ci.json ./contracts/contracts_ci.json
+           && cp ./contracts.json ./contracts/contracts.json
            "
       -
         run: 
