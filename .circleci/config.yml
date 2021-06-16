@@ -98,6 +98,18 @@ jobs:
                {
                  \"url\": \"/contracts/biography/openapi/saint.yaml\",
                  \"name\": \"biography\"
+               },
+               {
+                 \"url\": \"https://petstore.swagger.io/v2/swagger.json\",
+                 \"name\": \"Sample Petstore\"
+               },
+               {
+                 \"url\": \"/contracts/example/openapi/entity.yaml\",
+                 \"name\": \"example\"
+               },
+               {
+                 \"url\": \"/contracts/student/openapi/application/v1.yaml\",
+                 \"name\": \"biography\"
                }
              ]
            ' >> contracts_ci.json

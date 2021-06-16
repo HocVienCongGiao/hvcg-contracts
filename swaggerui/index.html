@@ -57,7 +57,7 @@
 
     function getServiceContracts() {
         const request = new XMLHttpRequest();
-        request.open("GET", "/contracts/contracts_ci.json", false);
+        request.open("GET", "/contracts/contracts.json", false);
         request.send(null)
         const contractsJSONObject = JSON.parse(request.responseText);
         const contracts = [];
