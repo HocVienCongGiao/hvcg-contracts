@@ -38,7 +38,10 @@
     window.onload = function () {
         // Begin Swagger UI call region
         const ui = SwaggerUIBundle({
-            urls: contractInfo,
+            urls: [{
+                "url":"/contracts/example/openapi/entity.yaml",
+                "name":"example"
+            }],
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [
