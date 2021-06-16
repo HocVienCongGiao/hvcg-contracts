@@ -97,19 +97,15 @@ jobs:
              [
                {
                  \"url\": \"/contracts/biography/openapi/saint.yaml\",
-                 \"name\": \"biography\"
-               },
-               {
-                 \"url\": \"https://petstore.swagger.io/v2/swagger.json\",
-                 \"name\": \"Sample Petstore\"
-               },
+                 \"name\": \"biography/saint.yaml\"
+               }
                {
                  \"url\": \"/contracts/example/openapi/entity.yaml\",
-                 \"name\": \"example\"
+                 \"name\": \"example/entity.yaml\"
                },
                {
                  \"url\": \"/contracts/student/openapi/application/v1.yaml\",
-                 \"name\": \"biography\"
+                 \"name\": \"student/application/v1.yaml\"
                }
              ]
            ' >> contracts.json
