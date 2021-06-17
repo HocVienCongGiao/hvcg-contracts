@@ -38,9 +38,9 @@ paths:
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/SaintRequest'
+        $ref: '#/components/requestBodies/Saint'
       security:
-        - saint_auth
+        - saint_auth: []
   /query-api/saints:
     get:
       tags:
@@ -114,9 +114,9 @@ paths:
         '405':
           description: Validation exception
       requestBody:
-        $ref: '#/components/requestBodies/SaintRequest'
+        $ref: '#/components/requestBodies/Saint'
       security:
-        - saint_auth
+        - saint_auth: []
     delete:
       tags:
         - saint
@@ -135,7 +135,7 @@ paths:
         '400':
           description: Invalid saint value
       security:
-        - saint_auth
+        - saint_auth: []
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -164,7 +164,7 @@ components:
       bearerFormat: JWT
   schemas:
     Saint:
-      title: a Saint
+      title: Saint
       description: Saint info
       type: object
       required:
@@ -199,3 +199,6 @@ components:
           description: feast day in format DD-MM
       xml:
         name: Saint
+
+security:
+  - saint_auth: []
