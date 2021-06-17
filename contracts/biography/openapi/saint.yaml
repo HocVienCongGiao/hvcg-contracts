@@ -170,6 +170,7 @@ components:
       required:
         - vietnameseName
         - gender
+        - feastDay
       properties:
         id:
           type: string
@@ -191,5 +192,10 @@ components:
           enum:
             - MALE
             - FEMALE
+        feastDay:
+          type: string
+          pattern: '^\d{2}-\d{2}$'
+          example: 31-12
+          description: feast day in format DD-MM
       xml:
         name: Saint
