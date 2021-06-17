@@ -11,8 +11,7 @@ jobs:
       - image: cimg/openjdk:16.0.0
     steps:
       - checkout
-      - run: "mkdir -p workspace/rust-openapi/.cargo"
-      - run: "cp .cargo/config.toml ./workspace/rust-openapi/.cargo"
+      - run: "mkdir -p workspace/rust-openapi/.cargo"      
       - run:
           command: |
             files=`git diff-tree --no-commit-id --name-only -r HEAD`
@@ -67,7 +66,8 @@ jobs:
             crate_files=`ls ./target/package`
             for crate_file in $crate_files; do 
             crate_name=${crate_file%.crate}
-            curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/${crate_name}.crate" -T ./target/package/${crate_name}.crate
+            # curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -XPUT "https://hocvienconggiao.jfrog.io/artifactory/cargo-local/crates/hvcg_${filename}/${crate_name}.crate" -T ./target/package/${crate_name}.crate
+            cargo publish --token $CARGO_DEFAULT_REGISTRY_TOKEN
             break
             done
             done
@@ -90,10 +90,31 @@ jobs:
           keys: 
             - "v1-dependencies-{{ checksum \"package-lock.json\" }}"
             - v1-dependencies-
-      - 
+      - run:
+          name: "Build dynamic contracts"
+          command: "
+           echo '
+             [
+               {
+                 \"url\": \"/contracts/biography/openapi/saint.yaml\",
+                 \"name\": \"biography/saint.yaml\"
+               },
+               {
+                \"url\": \"/contracts/example/openapi/entity.yaml\",
+                \"name\": \"example/entity.yaml\"
+               },
+                {
+                \"url\": \"/contracts/student/openapi/application/v1.yaml\",
+                \"name\": \"student/application/v1.yaml\"
+               }
+             ]
+           ' >> contracts.json
+           && cp ./contracts.json ./contracts/contracts.json
+           "
+      -
         run: 
           command: "cp -R ./contracts ./swaggerui/"
-      - 
+      -
         aws-s3/sync:
           arguments: |
               --delete \
