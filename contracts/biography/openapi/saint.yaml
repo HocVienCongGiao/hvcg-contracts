@@ -38,7 +38,7 @@ paths:
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/Saint'
+        $ref: '#/components/requestBodies/SaintRequest'
       security:
         - saint_auth: []
   /query-api/saints:
@@ -139,7 +139,7 @@ paths:
         '405':
           description: Validation exception
       requestBody:
-        $ref: '#/components/requestBodies/Saint'
+        $ref: '#/components/requestBodies/SaintRequest'
       security:
         - saint_auth: []
     delete:
