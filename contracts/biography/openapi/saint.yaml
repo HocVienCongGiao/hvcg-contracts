@@ -48,6 +48,24 @@ paths:
       summary: Find all saints
       description: Returns all saints
       operationId: getAllSaints
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          required: false
+          description: The number of saints to skip before starting to collect the result set.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of saints to return.
       responses:
         '200':
           description: successful operation
@@ -59,6 +77,62 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
+  /query-api/saints/findByGender:
+    get:
+      tags:
+        - saint
+      summary: Finds Saints by gender
+      operationId: findSaintsByGender
+      parameters:
+        - name: gender
+          in: query
+          description: Gender value that need to be considered for filter
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: string
+            enum:
+              - FEMALE
+              - MALE
+            default: FEMALE
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Saint'
+        '400':
+          description: Invalid status value
+  /query-api/saints/findByName:
+    get:
+      tags:
+        - saint
+      summary: Finds Saints by name
+      operationId: findSaintsByName
+      parameters:
+        - name: name
+          in: query
+          description: Name value that need to be considered for filter
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Saint'
+        '400':
+          description: Invalid name value
   /query-api/saints/{id}:
     get:
       tags:
