@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.1.0
+  version: 0.2.0
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -48,6 +48,31 @@ paths:
       summary: Find all saints
       description: Returns all saints
       operationId: getAllSaints
+      parameters:
+        - in: query
+          name: gender
+          schema:
+            $ref: '#/components/schemas/Gender'
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: offset
+          schema:
+            format: uuid
+            type: string
+          required: false
+          description: The number of saints to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of saints to return.
       responses:
         '200':
           description: successful operation
@@ -150,7 +175,7 @@ components:
               $ref: '#/components/schemas/Saint'
       description: List of saint object
       required: true
-    Saint:
+    SaintRequest:
       content:
         application/json:
           schema:
@@ -163,6 +188,11 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    Gender:
+      type: string
+      enum:
+        - MALE
+        - FEMALE
     Saint:
       title: Saint
       description: Saint info
