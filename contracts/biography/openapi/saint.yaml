@@ -38,7 +38,7 @@ paths:
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/Saint'
+        $ref: '#/components/requestBodies/SaintRequest'
       security:
         - saint_auth: []
   /query-api/saints:
@@ -50,15 +50,22 @@ paths:
       operationId: getAllSaints
       parameters:
         - in: query
+          name: gender
+          schema:
+            $ref: '#/components/schemas/Gender'
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
           name: offset
           schema:
-            type: integer
-            minimum: 0
-            default: 0
+            format: uuid
+            type: string
           required: false
           description: The number of saints to skip before starting to collect the result set.
         - in: query
-          name: limit
+          name: count
           schema:
             type: integer
             minimum: 1
@@ -77,62 +84,6 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /query-api/saints/findByGender:
-    get:
-      tags:
-        - saint
-      summary: Finds Saints by gender
-      operationId: findSaintsByGender
-      parameters:
-        - name: gender
-          in: query
-          description: Gender value that need to be considered for filter
-          required: true
-          style: form
-          explode: false
-          schema:
-            type: string
-            enum:
-              - FEMALE
-              - MALE
-            default: FEMALE
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Saint'
-        '400':
-          description: Invalid status value
-  /query-api/saints/findByName:
-    get:
-      tags:
-        - saint
-      summary: Finds Saints by name
-      operationId: findSaintsByName
-      parameters:
-        - name: name
-          in: query
-          description: Name value that need to be considered for filter
-          required: true
-          style: form
-          explode: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Saint'
-        '400':
-          description: Invalid name value
   /query-api/saints/{id}:
     get:
       tags:
@@ -188,7 +139,7 @@ paths:
         '405':
           description: Validation exception
       requestBody:
-        $ref: '#/components/requestBodies/Saint'
+        $ref: '#/components/requestBodies/SaintRequest'
       security:
         - saint_auth: []
     delete:
@@ -224,7 +175,7 @@ components:
               $ref: '#/components/schemas/Saint'
       description: List of saint object
       required: true
-    Saint:
+    SaintRequest:
       content:
         application/json:
           schema:
@@ -237,6 +188,11 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    Gender:
+      type: string
+      enum:
+        - MALE
+        - FEMALE
     Saint:
       title: Saint
       description: Saint info
