@@ -7,54 +7,57 @@ servers:
           - dev
           - prod
         default: dev
-  
+
 info:
   description: >-
-    This is a sample server Saint info server. For this sample, you can use the api key
-    `special-key` to test the authorization filters.
+    This is a server for Catholic Polity info.
   version: 0.1.0
-  title: OpenAPI Saint info
+  title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: saint
-    description: Everything about your Saints
+  - name: polity
+    description: Everything about your Polities
 paths:
-  /mutation-api/saint:
+  /mutation-api/polity:
     post:
       tags:
-        - saint
-      summary: Add new saint
+        - polity
+      summary: Add new polity
       description: ''
-      operationId: addSaint
+      operationId: addPolity
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Saint'
+                $ref: '#/components/schemas/Polity'
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/SaintRequest'
+        $ref: '#/components/requestBodies/PolityRequest'
       security:
-        - saint_auth: []
-  /query-api/saint:
+        - polity_auth: []
+  /query-api/polity:
     get:
       tags:
-        - saint
-      summary: Get all saints
-      description: Returns all saints
-      operationId: getAllSaints
+        - polity
+      summary: Get all polities
+      description: Returns all polities
+      operationId: getAllPolities
       parameters:
         - in: query
-          name: gender
+          name: province
           schema:
-            $ref: '#/components/schemas/Gender'
+            $ref: '#/components/schemas/EcclesiasticalProvince'
         - in: query
-          name: name
+          name: diocese
+          schema:
+            type: string
+        - in: query
+          name: parish
           schema:
             type: string
         - in: query
@@ -63,7 +66,7 @@ paths:
             format: uuid
             type: string
           required: false
-          description: The number of saints to skip before starting to collect the result set.
+          description: The number of polities to skip before starting to collect the result set.
         - in: query
           name: count
           schema:
@@ -72,29 +75,29 @@ paths:
             maximum: 100
             default: 20
           required: false
-          description: The number of saints to return.
+          description: The number of polities to return.
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Saint'
+                $ref: '#/components/schemas/Polity'
         '400':
           description: Invalid ID supplied
         '404':
-          description: Saint not found
-  /query-api/saint/{id}:
+          description: Catholic Polity not found
+  /query-api/polity/{id}:
     get:
       tags:
-        - saint
-      summary: Find saint by ID
-      description: Returns a single saint
-      operationId: getSaintById
+        - polity
+      summary: Find polity by ID
+      description: Returns a single polity
+      operationId: getPolityById
       parameters:
         - name: id
           in: path
-          description: ID of saint to return
+          description: ID of polity to return
           required: true
           schema:
             type: string
@@ -105,22 +108,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Saint'
+                $ref: '#/components/schemas/Polity'
         '400':
           description: Invalid ID supplied
         '404':
-          description: Saint not found
-  /mutation-api/saint/{id}:
+          description: Catholic Polity not found
+  /mutation-api/polity/{id}:
     put:
       tags:
-        - saint
-      summary: Update an existing saint
+        - polity
+      summary: Update an existing polity
       description: ''
-      operationId: updateSaint
+      operationId: updatePolity
       parameters:
         - name: id
           in: path
-          description: ID of saint to update
+          description: ID of polity to update
           required: true
           schema:
             type: string
@@ -131,99 +134,87 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Saint'
+                $ref: '#/components/schemas/Polity'
         '400':
           description: Invalid ID supplied
         '404':
-          description: Saint not found
+          description: Catholic Polity not found
         '405':
           description: Validation exception
       requestBody:
-        $ref: '#/components/requestBodies/SaintRequest'
+        $ref: '#/components/requestBodies/PolityRequest'
       security:
-        - saint_auth: []
+        - polity_auth: []
     delete:
       tags:
-        - saint
-      summary: Deletes a saint
-      description: ''
-      operationId: deleteSaint
+        - polity
+      summary: "Delete Catholic polity by ID"
+      operationId: deletePolity
       parameters:
         - name: id
           in: path
-          description: Saint id to delete
+          description: "ID of Catholic polity that needs to be deleted"
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '400':
-          description: Invalid saint value
+          description: Invalid polity value
       security:
-        - saint_auth: []
+        - polity_auth: []
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
 components:
   requestBodies:
-    SaintArray:
+    PolityArray:
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Saint'
-      description: List of saint object
+              $ref: '#/components/schemas/Polity'
+      description: List of polity object
       required: true
-    SaintRequest:
+    PolityRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Saint'
-      description: Saint object that needs to be added to the database
+            $ref: '#/components/schemas/Polity'
+      description: Catholic Polity object that needs to be added to the database
       required: true
   securitySchemes:
-    saint_auth:
+    polity_auth:
       type: http
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Gender:
+    EcclesiasticalProvince:
       type: string
       enum:
-        - MALE
-        - FEMALE
-    Saint:
-      title: Saint
-      description: Saint info
+        - HA NOI
+        - HUE
+        - SAI GON
+    Polity:
       type: object
       required:
-        - vietnameseName
-        - gender
-        - feastDay
+        - "diocese"
+        - "ecclesiasticalProvince"
+        - "parish"
       properties:
         id:
           type: string
           format: uuid
-        englishName:
+        ecclesiasticalProvince:
+          $ref: "#/components/schemas/EcclesiasticalProvince"
+        diocese:
           type: string
-          example: Andrew
-        frenchName:
+          example: Ho Chi Minh
+          description: An area controlled by a ecclesiastical province
+        parish:
           type: string
-          example: André
-        latinName:
-          type: string
-          example: Andreas
-        vietnameseName:
-          type: string
-          example: Anrê
-        gender:
-          $ref: "#/components/schemas/Gender"
-        feastDay:
-          type: string
-          pattern: '^\d{2}-\d{2}$'
-          example: 31-12
-          description: feast day in format DD-MM
+          example: Hoa Hung
 
 security:
-  - saint_auth: []
+  - polity_auth: []
