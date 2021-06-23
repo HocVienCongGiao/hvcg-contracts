@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.1.0
+  version: 0.2.0
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -41,7 +41,7 @@ paths:
         $ref: '#/components/requestBodies/SaintRequest'
       security:
         - saint_auth: []
-  /query-api/saint:
+  /query-api/saints:
     get:
       tags:
         - saint
@@ -224,6 +224,8 @@ components:
           pattern: '^\d{2}-\d{2}$'
           example: 31-12
           description: feast day in format DD-MM
+      xml:
+        name: Saint
 
 security:
   - saint_auth: []
