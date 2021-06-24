@@ -20,7 +20,7 @@ tags:
   - name: polity
     description: Everything about your Polities
 paths:
-  /mutation-api/parish:
+  /mutation-api/parishes:
     post:
       tags:
         - parish
@@ -40,7 +40,7 @@ paths:
         $ref: '#/components/requestBodies/ParishRequest'
       security:
         - polity_auth: []
-  /mutation-api/diocese:
+  /mutation-api/dioceses:
     post:
       tags:
         - diocese
@@ -60,7 +60,7 @@ paths:
         $ref: '#/components/requestBodies/DioceseRequest'
       security:
         - polity_auth: []
-  /mutation-api/deanery:
+  /mutation-api/deaneries:
     post:
       tags:
         - deanery
@@ -80,7 +80,7 @@ paths:
         $ref: '#/components/requestBodies/DeaneryRequest'
       security:
         - polity_auth: []
-  /query-api/parish:
+  /query-api/parishes:
     get:
       tags:
         - parish
@@ -123,7 +123,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Parish not found
-  /query-api/diocese:
+  /query-api/dioceses:
     get:
       tags:
         - diocese
@@ -150,7 +150,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Diocese not found
-  /query-api/deanery:
+  /query-api/deaneries:
     get:
       tags:
         - deanery
