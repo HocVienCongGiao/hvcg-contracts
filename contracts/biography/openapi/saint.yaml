@@ -21,7 +21,7 @@ tags:
   - name: saint
     description: Everything about your Saints
 paths:
-  /mutation-api/saint:
+  /mutation-api/saints:
     post:
       tags:
         - saint
