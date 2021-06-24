@@ -156,7 +156,7 @@ paths:
         - deanery
       summary: Get all deaneries
       description: Returns all deaneries
-      operationId: getAllDioceses
+      operationId: getAllDeaneries
       parameters:
         - in: query
           name: province
