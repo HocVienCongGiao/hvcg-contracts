@@ -44,8 +44,8 @@ paths:
   /query-api/saints:
     get:
       tags:
-        - saints
-      summary: Find all saints
+        - saint
+      summary: Get all saints
       description: Returns all saints
       operationId: getAllSaints
       parameters:
@@ -84,7 +84,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /query-api/saints/{id}:
+  /query-api/saint/{id}:
     get:
       tags:
         - saint
@@ -110,7 +110,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /mutation-api/saints/{id}:
+  /mutation-api/saint/{id}:
     put:
       tags:
         - saint
@@ -222,10 +222,7 @@ components:
           type: string
           example: Anrê
         gender:
-          type: string
-          enum:
-            - MALE
-            - FEMALE
+          $ref: "#/components/schemas/Gender"
         feastDay:
           type: string
           pattern: '^\d{2}-\d{2}$'

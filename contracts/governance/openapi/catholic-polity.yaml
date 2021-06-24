@@ -1,0 +1,518 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://{env}-sg.portal.hocvienconggiao.com'
+    variables:
+      env:
+        enum:
+          - dev
+          - prod
+        default: dev
+
+info:
+  description: >-
+    This is a server for Catholic Polity info.
+  version: 0.1.0
+  title: OpenAPI Catholic Polity info
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: polity
+    description: Everything about your Polities
+paths:
+  /mutation-api/parishes:
+    post:
+      tags:
+        - parish
+      summary: Add new parish
+      description: ''
+      operationId: addParish
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/ParishRequest'
+      security:
+        - polity_auth: []
+  /mutation-api/dioceses:
+    post:
+      tags:
+        - diocese
+      summary: Add new diocese
+      description: ''
+      operationId: addDiocese
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diocese'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/DioceseRequest'
+      security:
+        - polity_auth: []
+  /mutation-api/deaneries:
+    post:
+      tags:
+        - deanery
+      summary: Add new deanery
+      description: ''
+      operationId: addDeanery
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deanery'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/DeaneryRequest'
+      security:
+        - polity_auth: []
+  /query-api/parishes:
+    get:
+      tags:
+        - parish
+      summary: Get all parishes
+      description: Returns all parishes
+      operationId: getAllParishes
+      parameters:
+        - in: query
+          name: diocese
+          schema:
+            $ref: "#/components/schemas/Diocese"
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: offset
+          schema:
+            format: uuid
+            type: string
+          required: false
+          description: The number of parishes to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of parishes to return.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Parish not found
+  /query-api/dioceses:
+    get:
+      tags:
+        - diocese
+      summary: Get all dioceses
+      description: Returns all dioceses
+      operationId: getAllDioceses
+      parameters:
+        - in: query
+          name: province
+          schema:
+            $ref: '#/components/schemas/EcclesiasticalProvince'
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diocese'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Diocese not found
+  /query-api/deaneries:
+    get:
+      tags:
+        - deanery
+      summary: Get all deaneries
+      description: Returns all deaneries
+      operationId: getAllDeaneries
+      parameters:
+        - in: query
+          name: province
+          schema:
+            $ref: '#/components/schemas/EcclesiasticalProvince'
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deanery'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Deanery not found
+  /query-api/parish/{id}:
+    get:
+      tags:
+        - parish
+      summary: Find parish by ID
+      description: Returns a single parish
+      operationId: getParishById
+      parameters:
+        - name: id
+          in: path
+          description: ID of parish to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Parish not found
+  /query-api/diocese/{id}:
+    get:
+      tags:
+        - diocese
+      summary: Find diocese by ID
+      description: Returns a single diocese
+      operationId: getDioceseById
+      parameters:
+        - name: id
+          in: path
+          description: ID of diocese to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diocese'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Diocese not found
+  /query-api/deanery/{id}:
+    get:
+      tags:
+        - deanery
+      summary: Find deanery by ID
+      description: Returns a single deanery
+      operationId: getDeaneryById
+      parameters:
+        - name: id
+          in: path
+          description: ID of deanery to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deanery'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Deanery not found
+  /mutation-api/parish/{id}:
+    put:
+      tags:
+        - parish
+      summary: Update an existing parish
+      operationId: updateParish
+      parameters:
+        - name: id
+          in: path
+          description: ID of parish to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Parish not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/ParishRequest'
+      security:
+        - polity_auth: []
+    delete:
+      tags:
+        - parish
+      summary: "Delete parish by ID"
+      operationId: deleteParish
+      parameters:
+        - name: id
+          in: path
+          description: "ID of Catholic parish that needs to be deleted"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '400':
+          description: Invalid parish value
+      security:
+        - polity_auth: []
+  /mutation-api/deanery/{id}:
+    put:
+      tags:
+        - deanery
+      summary: Update an existing deanery
+      description: ''
+      operationId: updateDeanery
+      parameters:
+        - name: id
+          in: path
+          description: ID of deanery to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Deanery not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/DeaneryRequest'
+      security:
+        - polity_auth: []
+    delete:
+      tags:
+        - diocese
+      summary: "Delete diocese by ID"
+      operationId: deleteDiocese
+      parameters:
+        - name: id
+          in: path
+          description: "ID of diocese that needs to be deleted"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '400':
+          description: Invalid diocese value
+      security:
+        - polity_auth: []
+  /mutation-api/diocese/{id}:
+    put:
+      tags:
+        - diocese
+      summary: Update an existing diocese
+      description: ''
+      operationId: updateDiocese
+      parameters:
+        - name: id
+          in: path
+          description: ID of diocese to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parish'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Diocese not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/DioceseRequest'
+      security:
+        - polity_auth: []
+    delete:
+      tags:
+        - deanery
+      summary: "Delete deanery by ID"
+      operationId: deleteDeanery
+      parameters:
+        - name: id
+          in: path
+          description: "ID of deanery that needs to be deleted"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '400':
+          description: Invalid deanery value
+      security:
+        - polity_auth: []
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  requestBodies:
+    ParishArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Parish'
+      description: List of parishes object
+      required: true
+    ParishRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Parish'
+    DeaneryArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Deanery'
+      description: List of deaneries object
+      required: true
+    DeaneryRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Deanery'
+      description: Parish object that needs to be added to the database
+      required: true
+    DioceseArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Diocese'
+      description: List of dioceses object
+      required: true
+    DioceseRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Diocese'
+      description: Diocese object that needs to be added to the database
+      required: true
+  securitySchemes:
+    polity_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    EcclesiasticalProvince:
+      type: string
+      enum:
+        - HA_NOI
+        - HUE
+        - SAI_GON
+    Polity:
+      type: object
+      required:
+        - "name"
+        - "inCharge"
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        inCharge:
+           type: string
+    Diocese:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      description: An area controlled by a ecclesiastical province
+      required:
+        - "ecclesiasticalProvince"
+      properties:
+        ecclesiasticalProvince:
+          $ref: "#/components/schemas/EcclesiasticalProvince"
+    Deanery:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      description: An area controlled by a diocese
+      required:
+        - "deanery"
+      properties:
+        Diocese:
+          $ref: "#/components/schemas/Diocese"
+    Parish:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      required:
+        - "diocese"
+        - "deanery"
+        - "name"
+      properties:
+        diocese:
+          $ref: "#/components/schemas/Diocese"
+        deanery:
+          $ref: "#/components/schemas/Deanery"
+
+security:
+  - polity_auth: []
