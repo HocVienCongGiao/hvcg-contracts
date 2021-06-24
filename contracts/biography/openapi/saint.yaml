@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.2.0
+  version: 0.3.0
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -199,12 +199,16 @@ components:
       type: object
       required:
         - vietnameseName
+        - displayName
         - gender
         - feastDay
       properties:
         id:
           type: string
-          format: uuid
+          format: uuid        
+        displayName:
+          type: string
+          example: Anrê          
         englishName:
           type: string
           example: Andrew
