@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.1.0
+  version: 0.1.1
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -471,14 +471,14 @@ components:
       type: object
       required:
         - "name"
-        - "inCharge"
+        - "personInCharge"
       properties:
         id:
           type: string
           format: uuid
         name:
           type: string
-        inCharge:
+        personInCharge:
            type: string
     Diocese:
       allOf:
@@ -496,9 +496,9 @@ components:
       type: object
       description: An area controlled by a diocese
       required:
-        - "deanery"
+        - "diocese"
       properties:
-        Diocese:
+        diocese:
           $ref: "#/components/schemas/Diocese"
     Parish:
       allOf:
