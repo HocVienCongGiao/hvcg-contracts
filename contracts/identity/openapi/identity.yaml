@@ -1,0 +1,214 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://{env}-sg.portal.hocvienconggiao.com'
+    variables:
+      env:
+        enum:
+          - dev
+          - prod
+        default: dev
+  
+info:
+  description: >-
+    This is a API for identity.
+  version: 0.3.1
+  title: OpenAPI Indentity info
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: users
+    description: Everything about users
+paths:
+  /query-api/users/:
+    get:
+      tags:
+        - query-user
+      summary: Get users infomation
+      description: Returns a single user
+      operationId: query-user
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: The user id
+        - in: query
+          name: username
+          schema:
+            type: string
+          description: The user name
+        - in: query
+          name: phone
+          schema:
+            type: string
+            pattern: '^\+\d{2} .*$'
+          description: The userphone number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - user_auth: []
+  /query-api/user/{id}:
+    get:
+      tags:
+        - query-user
+      summary: Get user infomation by id
+      description: Returns a single user
+      operationId: query-user
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - user_auth: []
+  /mutation-api/user/update-password/{id}:
+    put:
+      tags:
+        - mutation-user
+      summary: update password
+      description: Update user password
+      operationId: updatePassword
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plainPassword:
+                  type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '405':
+          description: Invalid input
+      security:
+        - user_auth: []
+  /mutation-api/user/deactive/{id}:
+    put:
+      tags:
+        - mutation-user
+      summary: Deactive user
+      description: Deactive user
+      operationId: deactiveUser
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '405':
+          description: Invalid input
+      security:
+        - user_auth: []
+  /mutation-api/user/update-info/{id}:
+    put:
+      tags:
+        - mutation-user
+      summary: Deactive user
+      description: ''
+      operationId: deactiveUser
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/UserRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '405':
+          description: Invalid input
+      security:
+        - user_auth: []
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  requestBodies:
+    UserRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      description: User object that needs to be added to the database
+      required: true
+  securitySchemes:
+    user_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      title: User
+      description: User info
+      type: object
+      required:
+        - username
+      properties:
+        id:
+          type: string
+          format: uuid        
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          pattern: '^\+\d{2} .*$'
+security:
+  - user_auth: []
