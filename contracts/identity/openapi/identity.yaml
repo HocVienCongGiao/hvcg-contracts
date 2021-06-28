@@ -51,11 +51,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/User'
         '400':
           description: Invalid ID supplied
         '404':
           description: User not found
+      security:
+        - user_auth: []
   /query-api/user/{id}:
     get:
       tags:
@@ -77,11 +79,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/User'
         '400':
           description: Invalid ID supplied
         '404':
           description: User not found
+      security:
+        - user_auth: []
   /mutation-api/user/update-password/{id}:
     put:
       tags:
@@ -112,11 +116,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/User'
         '405':
           description: Invalid input
       security:
-        - user_auth: [ ]
+        - user_auth: []
   /mutation-api/user/deactive/{id}:
     put:
       tags:
@@ -138,11 +142,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/User'
         '405':
           description: Invalid input
       security:
-        - user_auth: [ ]
+        - user_auth: []
   /mutation-api/user/update-info/{id}:
     put:
       tags:
@@ -166,11 +170,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/User'
         '405':
           description: Invalid input
       security:
-        - user_auth: [ ]
+        - user_auth: []
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -180,8 +184,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserRequest'
-      description: Saint object that needs to be added to the database
+            $ref: '#/components/schemas/User'
+      description: User object that needs to be added to the database
       required: true
   securitySchemes:
     user_auth:
@@ -189,29 +193,16 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    UserResponse:
+    User:
       title: User
       description: User info
       type: object
       required:
-        - id
         - username
       properties:
         id:
           type: string
           format: uuid        
-        username:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-          pattern: '^\+\d{2} .*$'
-    UserRequest:
-      title: UserRequest
-      description: User request info
-      type: object
-      properties:
         username:
           type: string
         email:
