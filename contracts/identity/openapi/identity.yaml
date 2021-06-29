@@ -92,7 +92,7 @@ paths:
         - mutation-user
       summary: update password
       description: Update user password
-      operationId: updatePassword
+      operationId: update-password
       parameters:
         - name: id
           in: path
@@ -127,7 +127,7 @@ paths:
         - mutation-user
       summary: Deactive user
       description: Deactive user
-      operationId: deactiveUser
+      operationId: deactive-user
       parameters:
         - name: id
           in: path
@@ -153,7 +153,7 @@ paths:
         - mutation-user
       summary: Deactive user
       description: ''
-      operationId: deactiveUser
+      operationId: update-user-info
       parameters:
         - name: id
           in: path
