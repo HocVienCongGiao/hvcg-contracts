@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.1.1
+  version: 0.1.2
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -177,7 +177,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Deanery not found
-  /query-api/parish/{id}:
+  /query-api/parishes/{id}:
     get:
       tags:
         - parish
@@ -203,7 +203,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Parish not found
-  /query-api/diocese/{id}:
+  /query-api/dioceses/{id}:
     get:
       tags:
         - diocese
@@ -229,7 +229,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Diocese not found
-  /query-api/deanery/{id}:
+  /query-api/deaneries/{id}:
     get:
       tags:
         - deanery
@@ -255,20 +255,12 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Deanery not found
-  /mutation-api/parish/{id}:
+  /mutation-api/parish:
     put:
       tags:
         - parish
       summary: Update an existing parish
       operationId: updateParish
-      parameters:
-        - name: id
-          in: path
-          description: ID of parish to update
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '200':
           description: successful operation
@@ -304,21 +296,13 @@ paths:
           description: Invalid parish value
       security:
         - polity_auth: []
-  /mutation-api/deanery/{id}:
+  /mutation-api/deanery:
     put:
       tags:
         - deanery
       summary: Update an existing deanery
       description: ''
       operationId: updateDeanery
-      parameters:
-        - name: id
-          in: path
-          description: ID of deanery to update
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '200':
           description: successful operation
@@ -354,21 +338,13 @@ paths:
           description: Invalid diocese value
       security:
         - polity_auth: []
-  /mutation-api/diocese/{id}:
+  /mutation-api/diocese:
     put:
       tags:
         - diocese
       summary: Update an existing diocese
       description: ''
       operationId: updateDiocese
-      parameters:
-        - name: id
-          in: path
-          description: ID of diocese to update
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '200':
           description: successful operation
@@ -391,14 +367,6 @@ paths:
         - deanery
       summary: "Delete deanery by ID"
       operationId: deleteDeanery
-      parameters:
-        - name: id
-          in: path
-          description: "ID of deanery that needs to be deleted"
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '400':
           description: Invalid deanery value
