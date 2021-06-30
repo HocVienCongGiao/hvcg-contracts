@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: 'http://{env}-sg.portal.hocvienconggiao.com'
+  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
     variables:
       env:
         enum:
