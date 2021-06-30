@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.3.1
+  version: 0.3.2
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -84,7 +84,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /query-api/saint/{id}:
+  /query-api/saints/{id}:
     get:
       tags:
         - saint
@@ -110,21 +110,13 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /mutation-api/saint/{id}:
+  /mutation-api/saints:
     put:
       tags:
         - saint
       summary: Update an existing saint
       description: ''
       operationId: updateSaint
-      parameters:
-        - name: id
-          in: path
-          description: ID of saint to update
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '200':
           description: successful operation
@@ -148,14 +140,6 @@ paths:
       summary: Deletes a saint
       description: ''
       operationId: deleteSaint
-      parameters:
-        - name: id
-          in: path
-          description: Saint id to delete
-          required: true
-          schema:
-            type: string
-            format: uuid
       responses:
         '400':
           description: Invalid saint value
