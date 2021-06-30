@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.1
+  version: 0.1.2
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -29,12 +29,6 @@ paths:
       operationId: query-users
       parameters:
         - in: query
-          name: id
-          schema:
-            type: string
-            format: uuid
-          description: The user id
-        - in: query
           name: username
           schema:
             type: string
@@ -43,7 +37,6 @@ paths:
           name: phone
           schema:
             type: string
-            pattern: '^\+\d{2} .*$'
           description: The userphone number
       responses:
         '200':
