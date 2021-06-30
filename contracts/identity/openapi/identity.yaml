@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.0
+  version: 0.1.1
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -20,7 +20,7 @@ tags:
   - name: users
     description: Everything about users
 paths:
-  /query-api/users/:
+  /query-api/users:
     get:
       tags:
         - query-user
@@ -93,14 +93,6 @@ paths:
       summary: update password
       description: Update user password
       operationId: update-password
-      parameters:
-        - name: id
-          in: path
-          description: The user id
-          required: true
-          schema:
-            type: string
-            format: uuid
       requestBody:
         required: true
         content:
