@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.1
+  version: 0.1.0
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -58,7 +58,7 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /query-api/user/{id}:
+  /query-api/users/{id}:
     get:
       tags:
         - query-user
@@ -86,7 +86,7 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /mutation-api/user/update-password/{id}:
+  /mutation-api/users/password:
     put:
       tags:
         - mutation-user
@@ -121,21 +121,13 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/user/deactive/{id}:
-    put:
+  /mutation-api/users/deactivation:
+    post:
       tags:
         - mutation-user
       summary: Deactive user
-      description: Deactive user
-      operationId: deactive-user
-      parameters:
-        - name: id
-          in: path
-          description: The user id
-          required: true
-          schema:
-            type: string
-            format: uuid
+      description: Deactivate user
+      operationId: deactivate_user
       responses:
         '200':
           description: successful operation
@@ -147,23 +139,13 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/user/update-info/{id}:
-    put:
+  /mutation-api/users/activation:
+    post:
       tags:
         - mutation-user
-      summary: Deactive user
-      description: ''
-      operationId: update-user-info
-      parameters:
-        - name: id
-          in: path
-          description: The user id
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        $ref: '#/components/requestBodies/UserRequest'
+      summary: Activate a user
+      description: Activate user
+      operationId: activate_user
       responses:
         '200':
           description: successful operation
@@ -174,7 +156,7 @@ paths:
         '405':
           description: Invalid input
       security:
-        - user_auth: []
+        - user_auth: []        
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
