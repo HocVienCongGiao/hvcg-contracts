@@ -26,7 +26,7 @@ paths:
         - parish
       summary: Add new parish
       description: ''
-      operationId: addParish
+      operationId: add_parish
       responses:
         '200':
           description: successful operation
@@ -46,7 +46,7 @@ paths:
         - diocese
       summary: Add new diocese
       description: ''
-      operationId: addDiocese
+      operationId: add_diocese
       responses:
         '200':
           description: successful operation
@@ -66,7 +66,7 @@ paths:
         - deanery
       summary: Add new deanery
       description: ''
-      operationId: addDeanery
+      operationId: add_deanery
       responses:
         '200':
           description: successful operation
@@ -86,7 +86,7 @@ paths:
         - parish
       summary: Get all parishes
       description: Returns all parishes
-      operationId: getAllParishes
+      operationId: get_parishes
       parameters:
         - in: query
           name: dioceseName
@@ -134,7 +134,7 @@ paths:
         - diocese
       summary: Get all dioceses
       description: Returns all dioceses
-      operationId: getAllDioceses
+      operationId: get_dioceses
       parameters:
         - in: query
           name: provinceName
@@ -159,14 +159,14 @@ paths:
     get:
       tags:
         - deanery
-      summary: Get all deaneries
+      summary: Get deaneries
       description: Returns all deaneries
-      operationId: getAllDeaneries
+      operationId: get_deaneries
       parameters:
         - in: query
-          name: province
+          name: provinceName
           schema:
-            $ref: '#/components/schemas/EcclesiasticalProvince'
+            type: string          
         - in: query
           name: name
           schema:
@@ -188,7 +188,7 @@ paths:
         - parish
       summary: Find parish by ID
       description: Returns a single parish
-      operationId: getParishById
+      operationId: get_parish_by_id
       parameters:
         - name: id
           in: path
@@ -214,7 +214,7 @@ paths:
         - diocese
       summary: Find diocese by ID
       description: Returns a single diocese
-      operationId: getDioceseById
+      operationId: get_diocese_by_id
       parameters:
         - name: id
           in: path
@@ -240,7 +240,7 @@ paths:
         - deanery
       summary: Find deanery by ID
       description: Returns a single deanery
-      operationId: getDeaneryById
+      operationId: get_deanery_by_id
       parameters:
         - name: id
           in: path
@@ -265,7 +265,7 @@ paths:
       tags:
         - parish
       summary: Update an existing parish
-      operationId: updateParish
+      operationId: update_parish
       responses:
         '200':
           description: successful operation
@@ -287,15 +287,7 @@ paths:
       tags:
         - parish
       summary: "Delete parish by ID"
-      operationId: deleteParish
-      parameters:
-        - name: id
-          in: path
-          description: "ID of Catholic parish that needs to be deleted"
-          required: true
-          schema:
-            type: string
-            format: uuid
+      operationId: delete_parish
       responses:
         '400':
           description: Invalid parish value
@@ -307,7 +299,7 @@ paths:
         - deanery
       summary: Update an existing deanery
       description: ''
-      operationId: updateDeanery
+      operationId: update_deanery
       responses:
         '200':
           description: successful operation
@@ -329,15 +321,7 @@ paths:
       tags:
         - diocese
       summary: "Delete diocese by ID"
-      operationId: deleteDiocese
-      parameters:
-        - name: id
-          in: path
-          description: "ID of diocese that needs to be deleted"
-          required: true
-          schema:
-            type: string
-            format: uuid
+      operationId: delete_diocese
       responses:
         '400':
           description: Invalid diocese value
@@ -349,7 +333,7 @@ paths:
         - diocese
       summary: Update an existing diocese
       description: ''
-      operationId: updateDiocese
+      operationId: update_diocese
       responses:
         '200':
           description: successful operation
@@ -371,7 +355,7 @@ paths:
       tags:
         - deanery
       summary: "Delete deanery by ID"
-      operationId: deleteDeanery
+      operationId: delete_deanery
       responses:
         '400':
           description: Invalid deanery value
