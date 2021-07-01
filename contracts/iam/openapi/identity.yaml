@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: 'http://{env}-sg.portal.hocvienconggiao.com'
+  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
     variables:
       env:
         enum:
@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.2
+  version: 0.0.1
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -20,7 +20,7 @@ tags:
   - name: users
     description: Everything about users
 paths:
-  /query-api/users:
+  /query-api/identity-service/users:
     get:
       tags:
         - query-user
@@ -51,7 +51,7 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /query-api/users/{id}:
+  /query-api/identity-service/users/{id}:
     get:
       tags:
         - query-user
@@ -79,7 +79,7 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /mutation-api/users/password:
+  /mutation-api/identity-service/users/password:
     put:
       tags:
         - mutation-user
@@ -106,7 +106,7 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/users/deactivation:
+  /mutation-api/identity-service/users/deactivation:
     post:
       tags:
         - mutation-user
@@ -124,7 +124,7 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/users/activation:
+  /mutation-api/identity-service/users/activation:
     post:
       tags:
         - mutation-user
