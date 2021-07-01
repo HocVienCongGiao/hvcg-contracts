@@ -103,8 +103,8 @@ jobs:
                 \"name\": \"student/application/v1.yaml\"
                },
                {
-                \"url\": \"/contracts/identity/openapi/identity.yaml\",
-                \"name\": \"identity/identity.yaml\"
+                \"url\": \"/contracts/iam/openapi/identity.yaml\",
+                \"name\": \"iam/identity.yaml\"
                }
              ]
            ' >> contracts.json
