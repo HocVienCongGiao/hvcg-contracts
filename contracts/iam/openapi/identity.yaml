@@ -142,7 +142,7 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/user:
+  /mutation-api/identity-service/user:
     post:
       tags:
         - mutation-user
