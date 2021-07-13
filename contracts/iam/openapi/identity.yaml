@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.1
+  version: 0.0.2
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -141,7 +141,27 @@ paths:
         '405':
           description: Invalid input
       security:
-        - user_auth: []        
+        - user_auth: []
+  /mutation-api/user:
+    post:
+      tags:
+        - mutation-user
+      summary: Create user
+      description: Create user
+      operationId: create-user
+      requestBody:
+        $ref: '#/components/requestBodies/UserRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '405':
+          description: Invalid input
+      security:
+        - user_auth: [ ]
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
