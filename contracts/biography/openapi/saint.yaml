@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.3.4
+  version: 0.4.0
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -60,8 +60,8 @@ paths:
         - in: query
           name: offset
           schema:
-            format: uuid
-            type: string
+            type: integer
+            minimum: 0
           required: false
           description: The number of saints to skip before starting to collect the result set.
         - in: query
@@ -79,7 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Saint'
+                $ref: '#/components/schemas/SaintCollection'
         '400':
           description: Invalid ID supplied
         '404':
@@ -217,6 +217,14 @@ components:
           description: feast day in format DD-MM
       xml:
         name: Saint
+    SaintCollection:
+      properties:
+        saints:
+          type: array
+            items:
+              $ref: '#/components/schemas/Saint'
+        hasMore:
+          type: boolean
 
 security:
   - saint_auth: []
