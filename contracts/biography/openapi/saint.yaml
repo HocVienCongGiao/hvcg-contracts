@@ -221,8 +221,8 @@ components:
       properties:
         saints:
           type: array
-            items:
-              $ref: '#/components/schemas/Saint'
+          items:
+            $ref: '#/components/schemas/Saint'
         hasMore:
           type: boolean
 
