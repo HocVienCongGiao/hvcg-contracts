@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.4.0
+  version: 0.5.0
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
