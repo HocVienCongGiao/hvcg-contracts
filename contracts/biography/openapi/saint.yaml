@@ -110,13 +110,21 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Saint not found
-  /mutation-api/saint-service/saint:
+  /mutation-api/saint-service/saints/{id}:
     put:
       tags:
         - saint
       summary: Update an existing saint
       description: ''
       operationId: update_saint
+      parameters:
+        - name: id
+          in: path
+          description: ID of saint to update
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: successful operation
@@ -140,9 +148,21 @@ paths:
       summary: Deletes a saint
       description: ''
       operationId: delete_saint
+      parameters:
+        - name: id
+          in: path
+          description: ID of saint to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
+        '200':
+          description: successful operation
         '400':
-          description: Invalid saint value
+          description: Invalid ID supplied
+        '404':
+          description: Saint not found
       security:
         - saint_auth: []
 externalDocs:
