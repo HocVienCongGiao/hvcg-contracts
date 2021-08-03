@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.3
+  version: 0.0.4
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -106,13 +106,21 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/identity-service/users/deactivation:
-    post:
+  /mutation-api/identity-service/users/{id}/deactivation:
+    put:
       tags:
         - mutation-user
       summary: Deactive user
       description: Deactivate user
       operationId: deactivate_user
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: successful operation
@@ -124,13 +132,21 @@ paths:
           description: Invalid input
       security:
         - user_auth: []
-  /mutation-api/identity-service/users/activation:
-    post:
+  /mutation-api/identity-service/users/{id}/activation:
+    put:
       tags:
         - mutation-user
       summary: Activate a user
       description: Activate user
       operationId: activate_user
+      parameters:
+        - name: id
+          in: path
+          description: The user id
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: successful operation
