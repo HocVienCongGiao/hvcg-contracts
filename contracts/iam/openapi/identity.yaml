@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.3
+  version: 0.0.4
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -113,6 +113,16 @@ paths:
       summary: Deactive user
       description: Deactivate user
       operationId: deactivate_user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
       responses:
         '200':
           description: successful operation
@@ -131,6 +141,16 @@ paths:
       summary: Activate a user
       description: Activate user
       operationId: activate_user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
       responses:
         '200':
           description: successful operation
