@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.2.0
+  version: 0.3.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -569,7 +569,7 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Province'
-      description: List of parishes object
+      description: List of province object
       required: true
     ProvinceRequest:
       content:
@@ -614,7 +614,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    code:
+    Code:
       type: string
       enum:
         - HA_NOI
@@ -638,10 +638,10 @@ components:
         - $ref: "#/components/schemas/Polity"
       type: object
       required:
-        - "ecclesiasticalProvince"
+        - "code"
       properties:
         code:
-          $ref: "#/components/schemas/EcclesiasticalProvince"
+          $ref: "#/components/schemas/Code"
     Diocese:
       allOf:
         - $ref: "#/components/schemas/Polity"
@@ -691,6 +691,12 @@ components:
             $ref: '#/components/schemas/Parish'
         hasMore:
           type: boolean
+    ProvinceCollection:
+      properties:
+        parishes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Province'
 
 security:
   - polity_auth: []
