@@ -57,7 +57,7 @@ paths:
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/ParishRequest'
+        $ref: '#/components/requestBodies/ProvinceRequest'
       security:
         - polity_auth: []
   /mutation-api/catholic-polity-service/dioceses:
