@@ -497,6 +497,15 @@ components:
           type: string
         personInCharge:
            type: string
+    Province:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      required:
+        - "ecclesiasticalProvince"
+      properties:
+        ecclesiasticalProvince:
+          $ref: "#/components/schemas/EcclesiasticalProvince"
     Diocese:
       allOf:
         - $ref: "#/components/schemas/Polity"
@@ -505,8 +514,8 @@ components:
       required:
         - "ecclesiasticalProvince"
       properties:
-        ecclesiasticalProvince:
-          $ref: "#/components/schemas/EcclesiasticalProvince"
+        province:
+          $ref: "#/components/schemas/Province"
     Deanery:
       allOf:
         - $ref: "#/components/schemas/Polity"
