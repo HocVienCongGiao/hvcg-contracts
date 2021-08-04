@@ -523,10 +523,7 @@ components:
       type: object
       required:
         - "deanery"
-        - "name"
       properties:
-        name:
-          type: string
         deanery:
           $ref: "#/components/schemas/Deanery"
     DioceseCollection:
