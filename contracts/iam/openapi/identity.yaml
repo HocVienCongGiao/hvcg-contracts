@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.5
+  version: 0.0.7
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -103,13 +103,21 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /mutation-api/identity-service/users/password:
+  /mutation-api/identity-service/users/{id}/password:
     put:
       tags:
         - mutation-user
       summary: update password
       description: Update user password
       operationId: update-password
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer to update
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
