@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.0
 servers:
   - url: 'https://{env}-sg.portal.hocvienconggiao.com'
     variables:
@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.4
+  version: 0.0.5
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -37,14 +37,38 @@ paths:
           name: phone
           schema:
             type: string
-          description: The userphone number
+          description: The user phone number
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: The user email
+        - in: query
+          name: enabled
+          schema:
+            type: boolean
+          description: The user status
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          description: The number of users to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: The number of saints to return.
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserCollection'
         '400':
           description: Invalid ID supplied
         '404':
@@ -217,5 +241,13 @@ components:
         phone:
           type: string
           pattern: '^\+\d{2} .*$'
+    UserCollection:
+      properties:
+        saints:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        hasMore:
+          type: boolean
 security:
   - user_auth: []
