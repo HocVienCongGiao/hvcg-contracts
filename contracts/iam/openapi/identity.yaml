@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.6
+  version: 0.0.7
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -103,7 +103,7 @@ paths:
           description: User not found
       security:
         - user_auth: []
-  /mutation-api/identity-service/users/password:
+  /mutation-api/identity-service/users/{id}/password:
     put:
       tags:
         - mutation-user
