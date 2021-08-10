@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.5
+  version: 0.0.6
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
