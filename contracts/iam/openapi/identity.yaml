@@ -17,8 +17,7 @@ info:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: iam-
-  
+  - name: iam-users
     description: Everything about users
 paths:
   /query-api/identity-service/users:
