@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.0.9
+  version: 0.1.0
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -209,6 +209,61 @@ paths:
           description: Invalid input
       security:
         - user_auth: [ ]
+  /mutation-api/identity-service/users/{id}:
+    put:
+      tags:
+        - mutation-user
+      summary: Update an existing user
+      description: ''
+      operationId: update_user
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Saint not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/UserRequest'
+      security:
+        - user_auth: [ ]
+    delete:
+      tags:
+        - saint
+      summary: Deletes a saint
+      description: ''
+      operationId: delete_saint
+      parameters:
+        - name: id
+          in: path
+          description: ID of saint to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Saint not found
+      security:
+        - saint_auth: [ ]
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
