@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.0
+  version: 0.1.1
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -299,6 +299,10 @@ components:
         phone:
           type: string
           pattern: '^\+\d{2} .*$'
+        enabled:
+          type: boolean
+        group:
+          $ref: '#/components/schemas/Group'
     UserCollection:
       properties:
         users:
@@ -307,5 +311,15 @@ components:
             $ref: '#/components/schemas/User'
         hasMore:
           type: boolean
+    Group:
+      title: Group
+      description: The cognito user groups.
+      type: string
+      enum:
+        - ADMINGROUP
+        - OPERATORGROUP
+        - PROFESSORGROUP
+        - STUDENTGROUP
+        - UNKNOWN
 security:
   - user_auth: []
