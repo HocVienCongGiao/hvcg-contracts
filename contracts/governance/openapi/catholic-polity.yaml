@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.3.0
+  version: 0.4.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -109,9 +109,10 @@ paths:
       operationId: get_parishes
       parameters:
         - in: query
-          name: dioceseName
+          name: deaneryId
           schema:
             type: string
+            format: uuid
         - in: query
           name: dioceseId
           schema:
@@ -152,14 +153,34 @@ paths:
     get:
       tags:
         - province
-      summary: Get all province
-      description: Returns all province
-      operationId: get_province
+      summary: Get all provinces
+      description: Returns all provinces
+      operationId: get_provinces
       parameters:
         - in: query
           name: name
           schema:
             type: string
+        - in: query
+          name: provinceCode
+          schema:
+            $ref: '#/components/schemas/Code'
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          required: false
+          description: The number of provinces to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of provinces to return.
       responses:
         '200':
           description: successful operation
@@ -180,13 +201,34 @@ paths:
       operationId: get_dioceses
       parameters:
         - in: query
-          name: provinceName
+          name: provinceId
           schema:
-            type: string          
+            type: string
+            format: uuid
+        - in: query
+          name: provinceCode
+          schema:
+            $ref: '#/components/schemas/Code'
         - in: query
           name: name
           schema:
             type: string
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          required: false
+          description: The number of dioceses to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of dioceses to return.
       responses:
         '200':
           description: successful operation
@@ -207,13 +249,30 @@ paths:
       operationId: get_deaneries
       parameters:
         - in: query
-          name: provinceName
+          name: dioceseId
           schema:
-            type: string          
+            type: string
+            format: uuid
         - in: query
           name: name
           schema:
             type: string
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          required: false
+          description: The number of deaneries to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of deaneries to return.
       responses:
         '200':
           description: successful operation
@@ -648,7 +707,7 @@ components:
       type: object
       description: An area controlled by a ecclesiastical province
       required:
-        - "ecclesiasticalProvince"
+        - "province"
       properties:
         province:
           $ref: "#/components/schemas/Province"
@@ -677,12 +736,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Diocese'
+        hasMore:
+          type: boolean
     DeaneryCollection:
       properties:
         deaneries:
           type: array
           items:
             $ref: '#/components/schemas/Deanery'
+        hasMore:
+          type: boolean
     ParishCollection:
       properties:
         parishes:
@@ -697,6 +760,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Province'
+        hasMore:
+          type: boolean
 
 security:
   - polity_auth: []
