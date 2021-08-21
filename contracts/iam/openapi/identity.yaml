@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.1
+  version: 0.1.2
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -302,7 +302,9 @@ components:
         enabled:
           type: boolean
         group:
-          $ref: '#/components/schemas/Group'
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
     UserCollection:
       properties:
         users:
