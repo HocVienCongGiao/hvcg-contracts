@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a API for identity.
-  version: 0.1.1
+  version: 0.1.2
   title: OpenAPI Indentity info
   license:
     name: Apache-2.0
@@ -316,10 +316,10 @@ components:
       description: The cognito user groups.
       type: string
       enum:
-        - ADMINGROUP
-        - OPERATORGROUP
-        - PROFESSORGROUP
-        - STUDENTGROUP
+        - ADMIN_GROUP
+        - OPERATOR_GROUP
+        - PROFESSOR_GROUP
+        - STUDENT_GROUP
         - UNKNOWN
 security:
   - user_auth: []
