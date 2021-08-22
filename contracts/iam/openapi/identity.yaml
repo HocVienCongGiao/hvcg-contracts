@@ -318,10 +318,10 @@ components:
       description: The cognito user groups.
       type: string
       enum:
-        - ADMINGROUP
-        - OPERATORGROUP
-        - PROFESSORGROUP
-        - STUDENTGROUP
+        - ADMIN_GROUP
+        - OPERATOR_GROUP
+        - PROFESSOR_GROUP
+        - STUDENT_GROUP
         - UNKNOWN
 security:
   - user_auth: []
