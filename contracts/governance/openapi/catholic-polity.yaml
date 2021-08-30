@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.4.0
+  version: 0.5.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -98,6 +98,26 @@ paths:
           description: Invalid input
       requestBody:
         $ref: '#/components/requestBodies/DeaneryRequest'
+      security:
+        - polity_auth: []
+  /mutation-api/catholic-polity-service/institutes:
+    post:
+      tags:
+        - institute
+      summary: Add new institute
+      description: ''
+      operationId: add_institute
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institute'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/InstituteRequest'
       security:
         - polity_auth: []
   /query-api/catholic-polity-service/parishes:
@@ -284,6 +304,45 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Deanery not found
+  /query-api/catholic-polity-service/institutes:
+    get:
+      tags:
+        - institute
+      summary: Get institutes
+      description: Returns all institutes
+      operationId: get_institutes
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          required: false
+          description: The number of institutes to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of institutes to return.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstituteCollection'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Institute not found
   /query-api/catholic-polity-service/parishes/{id}:
     get:
       tags:
@@ -388,6 +447,32 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Deanery not found
+  /query-api/catholic-polity-service/institutes/{id}:
+    get:
+      tags:
+        - institute
+      summary: Find institute by ID
+      description: Returns a single institute
+      operationId: get_institute_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of institute to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institute'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Institute not found
   /mutation-api/catholic-polity-service/parishes/{id}:
     put:
       tags:
@@ -602,6 +687,60 @@ paths:
           description: Diocese not found
       security:
         - polity_auth: []
+  /mutation-api/catholic-polity-service/institutes/{id}:
+    put:
+      tags:
+        - institute
+      summary: Update an existing institute
+      description: ''
+      operationId: update_institute
+      parameters:
+        - name: id
+          in: path
+          description: ID of institute to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institute'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Institute not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/InstituteRequest'
+      security:
+        - polity_auth: []
+    delete:
+      tags:
+        - institute
+      summary: "Delete institute by ID"
+      operationId: delete_institute
+      parameters:
+        - name: id
+          in: path
+          description: ID of institute to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Institute not found
+      security:
+        - polity_auth: []
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
@@ -667,6 +806,22 @@ components:
             $ref: '#/components/schemas/Diocese'
       description: Diocese object that needs to be added to the database
       required: true
+    InstituteArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Institute'
+      description: List of institutes object
+      required: true
+    InstituteRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Institute'
+      description: Institute object that needs to be added to the database
+      required: true
   securitySchemes:
     polity_auth:
       type: http
@@ -683,12 +838,15 @@ components:
       type: object
       required:
         - "name"
-        - "personInCharge"
       properties:
         id:
           type: string
           format: uuid
         name:
+          type: string
+        locationAddress:
+          type: string
+        locationName:
           type: string
         personInCharge:
            type: string
@@ -730,6 +888,10 @@ components:
       properties:
         deanery:
           $ref: "#/components/schemas/Deanery"
+    Institute:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
     DioceseCollection:
       properties:
         dioceses:
@@ -756,10 +918,18 @@ components:
           type: boolean
     ProvinceCollection:
       properties:
-        parishes:
+        provinces:
           type: array
           items:
             $ref: '#/components/schemas/Province'
+        hasMore:
+          type: boolean
+    InstituteCollection:
+      properties:
+        institutes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Institute'
         hasMore:
           type: boolean
 
