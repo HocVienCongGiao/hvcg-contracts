@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.6.1
+  version: 0.7.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -902,6 +902,9 @@ components:
             $ref: '#/components/schemas/Diocese'
         hasMore:
           type: boolean
+        total:
+          type: integer
+          format: int64
     DeaneryCollection:
       properties:
         deaneries:
@@ -910,6 +913,9 @@ components:
             $ref: '#/components/schemas/Deanery'
         hasMore:
           type: boolean
+        total:
+          type: integer
+          format: int64
     ParishCollection:
       properties:
         parishes:
@@ -918,6 +924,9 @@ components:
             $ref: '#/components/schemas/Parish'
         hasMore:
           type: boolean
+        total:
+          type: integer
+          format: int64
     ProvinceCollection:
       properties:
         provinces:
@@ -926,6 +935,9 @@ components:
             $ref: '#/components/schemas/Province'
         hasMore:
           type: boolean
+        total:
+          type: integer
+          format: int64
     InstituteCollection:
       properties:
         institutes:
@@ -934,6 +946,9 @@ components:
             $ref: '#/components/schemas/Institute'
         hasMore:
           type: boolean
+        total:
+          type: integer
+          format: int64
 
 security:
   - polity_auth: []
