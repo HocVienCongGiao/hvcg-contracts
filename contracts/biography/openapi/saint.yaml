@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.7.2
+  version: 0.7.3
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -57,6 +57,14 @@ paths:
           name: displayName
           schema:
             type: string
+        - in: query
+          name: vietnameseName
+          schema:
+            type: string
+        - in: query
+          name: englishName
+          schema:
+            type: string            
         - in: query
           name: sorts
           description: to sort +displayName for ASC and -displayName for DESC
