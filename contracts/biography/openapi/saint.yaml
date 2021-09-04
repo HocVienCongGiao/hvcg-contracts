@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.7.1
+  version: 0.7.2
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -202,14 +202,14 @@ components:
     SaintSortCriteria:
       type: string
       enum:
-        - DisplayNameAsc
-        - DisplayNameDesc
-        - VietnameseNameAsc
-        - VietnameseNameDesc
-        - EnglishNameAsc
-        - EnglishNameDesc
-        - FeastDayAsc
-        - FeastDayDesc
+        - DISPLAY_NAME_ASC
+        - DISPLAY_NAME_DESC
+        - VIETNAMESE_NAME_ASC
+        - VIETNAMESE_NAME_DESC
+        - ENGLISH_NAME_ASC
+        - ENGLISH_NAME_DESC
+        - FEAST_DAY_ASC
+        - FEAST_DAY_DESC
     Gender:
       type: string
       enum:
