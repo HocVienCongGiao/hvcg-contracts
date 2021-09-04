@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Saint info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.7.0
+  version: 0.7.1
   title: OpenAPI Saint info
   license:
     name: Apache-2.0
@@ -58,13 +58,12 @@ paths:
           schema:
             type: string
         - in: query
-          name: sort
+          name: sorts
           description: to sort +displayName for ASC and -displayName for DESC
           schema:
             type: array
             items:
-              type: string
-            
+              $ref: '#/components/schemas/SaintSortCriteria'          
         - in: query
           name: offset
           schema:
@@ -200,6 +199,17 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    SaintSortCriteria:
+      type: string
+      enum:
+        - DisplayNameAsc
+        - DisplayNameDesc
+        - VietnameseNameAsc
+        - VietnameseNameDesc
+        - EnglishNameAsc
+        - EnglishNameDesc
+        - FeastDayAsc
+        - FeastDayDesc
     Gender:
       type: string
       enum:
