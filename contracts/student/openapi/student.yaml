@@ -79,7 +79,7 @@ paths:
           description: The number of students to return.
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -105,7 +105,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -139,7 +139,7 @@ paths:
         '400':
           description: Invalid ID supplied
         '404':
-          description: student not found
+          description: Student not found
         '405':
           description: Validation exception
       requestBody:
@@ -205,32 +205,32 @@ components:
           type: String
           format: uuid
           example: 53f549b9-99bf-4e12-88e3-c2f868953283
-        polity_id:
+        polityId:
           type: String
           format: uuid
           example: 4d084b56-54e1-4bd2-878e-c52675497c2b
-        saint_id:
+        saintId:
           type: String
           format: uuid
           example: 40e6215d-b5c6-4896-987c-f30f3678f608
         title:
           type: string
           example: PRIEST
-        first_name:
+        firstName:
           type: string
           example: Nguyen
-        middle_name:
+        middleName:
           type: string
           example: Huu
-        last_name:
+        lastName:
           type: string
           example: Chien
-        date_of_birth:
+        dateOfBirth:
           type: string
           pattern: '^\d{4}-\d{2}-\d{2}$'
           example: 1983-05-16
           description: date of birth in format YYYY-MM-DD
-        place_of_birth:
+        placeOfBirth:
           type: string
           example: Tra Vinh
         email:
@@ -239,7 +239,7 @@ components:
         phone:
           type: string
           example: +84 1228019700
-        school_name:
+        schoolName:
           type: string
           example: Dai Chung Vien Thanh Quy - Can Tho
       xml:
