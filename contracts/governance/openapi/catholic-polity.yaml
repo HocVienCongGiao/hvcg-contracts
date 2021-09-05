@@ -234,6 +234,18 @@ paths:
           schema:
             type: string
         - in: query
+          name: locationName
+          schema:
+            type: string
+        - in: query
+          name: locationAddress
+          schema:
+            type: string
+        - in: query
+          name: locationEmail
+          schema:
+            type: string
+        - in: query
           name: offset
           schema:
             type: integer
@@ -851,7 +863,7 @@ components:
         locationName:
           type: string
         personInCharge:
-           type: string
+          type: string
     Province:
       allOf:
         - $ref: "#/components/schemas/Polity"
