@@ -105,6 +105,10 @@ jobs:
                {
                 \"url\": \"/contracts/iam/openapi/identity.yaml\",
                 \"name\": \"iam/identity.yaml\"
+               },
+               {
+                \"url\": \"/contracts/student/openapi/student.yaml\",
+                \"name\": \"student/student.yaml\"
                }
              ]
            ' >> contracts.json
