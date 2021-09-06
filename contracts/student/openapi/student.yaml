@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.0.1
+  version: 0.0.2
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -24,7 +24,7 @@ paths:
   /mutation-api/student-service/students:
     post:
       tags:
-        - student
+        - mutation-student
       summary: Add new student
       description: ''
       operationId: addstudent
@@ -38,13 +38,13 @@ paths:
         '405':
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/studentRequest'
+        $ref: '#/components/requestBodies/StudentRequest'
       security:
         - student_auth: []
   /query-api/student-service/students:
     get:
       tags:
-        - student
+        - query-student
       summary: Get all students
       description: Returns all students
       operationId: getAllstudents
@@ -91,7 +91,7 @@ paths:
   /query-api/student-service/students/{id}:
     get:
       tags:
-        - student
+        - query-student
       summary: Find student by ID
       description: Returns a single student
       operationId: get_student_by_id
@@ -117,7 +117,7 @@ paths:
   /mutation-api/student-service/students/{id}:
     put:
       tags:
-        - student
+        - mutation-student
       summary: Update an existing student
       description: ''
       operationId: update_student
@@ -148,7 +148,7 @@ paths:
         - student_auth: []
     delete:
       tags:
-        - student
+        - mutation-student
       summary: Deletes a student
       description: ''
       operationId: delete_student
@@ -162,7 +162,7 @@ paths:
             format: uuid
       responses:
         '204':
-          description: successful operation
+          description: Successful operation
         '400':
           description: Invalid ID supplied
         '404':
