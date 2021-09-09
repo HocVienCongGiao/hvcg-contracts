@@ -24,7 +24,7 @@ paths:
   /mutation-api/student-service/students:
     post:
       tags:
-        - mutation-student
+        - student-mutation        
       summary: Add new student
       description: ''
       operationId: addstudent
@@ -41,10 +41,65 @@ paths:
         $ref: '#/components/requestBodies/StudentRequest'
       security:
         - student_auth: []
+  /mutation-api/student-service/students/{id}:
+    put:
+      tags:
+        - student-mutation
+      summary: Update an existing student
+      description: ''
+      operationId: update_student
+      parameters:
+        - name: id
+          in: path
+          description: ID of student to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Student not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/StudentRequest'
+      security:
+        - student_auth: []
+    delete:
+      tags:
+        - mutation-student
+      summary: Deletes a student
+      description: ''
+      operationId: delete_student
+      parameters:
+        - name: id
+          in: path
+          description: ID of student to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: student not found
+      security:
+        - student_auth: []        
   /query-api/student-service/students:
     get:
       tags:
-        - query-students
+        - student-query
       summary: Get all students
       description: Returns all students
       operationId: getStudents
@@ -111,7 +166,7 @@ paths:
   /query-api/student-service/students/{id}:
     get:
       tags:
-        - query-student
+        - student-query
       summary: Find student by ID
       description: Returns a single student
       operationId: get_student_by_id
@@ -134,61 +189,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Student not found
-  /mutation-api/student-service/students/{id}:
-    put:
-      tags:
-        - mutation-student
-      summary: Update an existing student
-      description: ''
-      operationId: update_student
-      parameters:
-        - name: id
-          in: path
-          description: ID of student to update
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Student'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Student not found
-        '405':
-          description: Validation exception
-      requestBody:
-        $ref: '#/components/requestBodies/StudentRequest'
-      security:
-        - student_auth: []
-    delete:
-      tags:
-        - mutation-student
-      summary: Deletes a student
-      description: ''
-      operationId: delete_student
-      parameters:
-        - name: id
-          in: path
-          description: ID of student to delete
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '204':
-          description: Successful operation
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: student not found
-      security:
-        - student_auth: []
+
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
