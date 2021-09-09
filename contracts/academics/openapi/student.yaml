@@ -27,7 +27,7 @@ paths:
         - student-mutation        
       summary: Add new student
       description: ''
-      operationId: addstudent
+      operationId: addStudent
       responses:
         '200':
           description: successful operation
@@ -47,7 +47,7 @@ paths:
         - student-mutation
       summary: Update an existing student
       description: ''
-      operationId: update_student
+      operationId: updateStudent
       parameters:
         - name: id
           in: path
@@ -169,7 +169,7 @@ paths:
         - student-query
       summary: Find student by ID
       description: Returns a single student
-      operationId: get_student_by_id
+      operationId: getStudentById
       parameters:
         - name: id
           in: path
