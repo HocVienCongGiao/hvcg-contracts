@@ -78,7 +78,7 @@ paths:
         - mutation-student
       summary: Deletes a student
       description: ''
-      operationId: delete_student
+      operationId: deleteStudent
       parameters:
         - name: id
           in: path
