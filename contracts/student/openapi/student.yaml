@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.0.2
+  version: 0.0.3
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -44,23 +44,43 @@ paths:
   /query-api/student-service/students:
     get:
       tags:
-        - query-student
+        - query-students
       summary: Get all students
       description: Returns all students
-      operationId: getAllstudents
+      operationId: getStudents
       parameters:
         - in: query
-          name: firstName
+          name: name
           schema:
             type: string
         - in: query
-          name: middleName
+          name: email
           schema:
             type: string
         - in: query
-          name: lastName
+          name: phone
           schema:
             type: string
+        - in: query
+          name: undergraduateSchool
+          schema:
+            type: string
+        - in: query
+          name: dateOfBirth
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: placeOfBirth
+          schema:
+            type: string
+        - in: query
+          name: sorts
+          description: to sort +displayName for ASC and -displayName for DESC
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/StudentSortCriteria'
         - in: query
           name: offset
           schema:
@@ -196,38 +216,56 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    StudentSortCriteria:
+      type: string
+      enum:
+        - NAME_ASC
+        - NAME_DESC
+        - CHRISTIAN_NAME_ASC
+        - CHRISTIAN_NAME_DESC
+        - POLITY_NAME_ASC
+        - POLITY_NAME_DESC
+        - LOCATION_NAME_ASC
+        - LOCATION_NAME_DESC
+        - PLACE_OF_BIRTH_ASC
+        - PLACE_OF_BIRTH_DESC
     Student:
       title: Student
       description: Student info
       type: object
       properties:
         id:
-          type: String
+          type: string
           format: uuid
           example: 53f549b9-99bf-4e12-88e3-c2f868953283
         polityId:
-          type: String
+          type: string
           format: uuid
           example: 4d084b56-54e1-4bd2-878e-c52675497c2b
-        saintId:
-          type: String
-          format: uuid
-          example: 40e6215d-b5c6-4896-987c-f30f3678f608
+        saintIdArray:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 40e6215d-b5c6-4896-987c-f30f3678f608
         title:
           type: string
-          example: PRIEST
+          enum:
+            - PRIEST
+            - MONK
+            - NUN
         firstName:
           type: string
-          example: Nguyen
+          example: Chien
         middleName:
           type: string
           example: Huu
         lastName:
           type: string
-          example: Chien
+          example: Nguyen          
         dateOfBirth:
           type: string
-          pattern: '^\d{4}-\d{2}-\d{2}$'
+          format: date
           example: 1983-05-16
           description: date of birth in format YYYY-MM-DD
         placeOfBirth:
@@ -239,17 +277,69 @@ components:
         phone:
           type: string
           example: +84 1228019700
-        schoolName:
+        undergraduateSchool:
           type: string
           example: Dai Chung Vien Thanh Quy - Can Tho
       xml:
         name: student
-    StudentCollection:
+    StudentView:
+      title: Student View
+      description: Student View
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 53f549b9-99bf-4e12-88e3-c2f868953283
+        polityName:
+          type: string
+          example: Dong Thanh The
+        polityLocationName:
+          type: string
+          example: Dong Thanh The Viet Nam
+        polityLocationAddress:
+          type: string
+          example: 123 Cach Mang
+        polityLocationEmail:
+          type: string
+          example: info@gmail.com
+        christianName:
+          type: string
+          example: Phero
+        title:
+          type: string
+          enum:
+            - PRIEST
+            - MONK
+            - NUN
+        name:
+          type: string
+          example: Nguyen Huu Chien
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1983-05-16
+          description: date of birth in format YYYY-MM-DD
+        placeOfBirth:
+          type: string
+          example: Tra Vinh
+        email:
+          type: string
+          example: binh@sunrise.vn
+        phone:
+          type: string
+          example: +84 1228019700
+        undergraduateSchool:
+          type: string
+          example: Dai Chung Vien Thanh Quy - Can Tho
+      xml:
+        name: student        
+    StudentViewCollection:
       properties:
         students:
           type: array
           items:
-            $ref: '#/components/schemas/Student'
+            $ref: '#/components/schemas/StudentView'
         hasMore:
           type: boolean
         total:
