@@ -99,16 +99,12 @@ jobs:
                 \"name\": \"example/entity.yaml\"
                },
                {
-                \"url\": \"/contracts/student/openapi/application/v1.yaml\",
-                \"name\": \"student/application/v1.yaml\"
-               },
-               {
                 \"url\": \"/contracts/iam/openapi/identity.yaml\",
                 \"name\": \"iam/identity.yaml\"
                },
                {
-                \"url\": \"/contracts/student/openapi/student.yaml\",
-                \"name\": \"student/student.yaml\"
+                \"url\": \"/contracts/academics/openapi/student.yaml\",
+                \"name\": \"academics/student.yaml\"
                }
              ]
            ' >> contracts.json
