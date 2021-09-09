@@ -132,7 +132,11 @@ paths:
         - in: query
           name: polityName
           schema:
-            type: string    
+            type: string
+        - in: query
+          name: specialism
+          schema:
+            type: string            
         - in: query
           name: sorts
           description: to sort +displayName for ASC and -displayName for DESC
