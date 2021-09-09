@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.1.0
+  version: 0.2.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -75,7 +75,7 @@ paths:
         - student_auth: []
     delete:
       tags:
-        - mutation-student
+        - student-mutation
       summary: Deletes a student
       description: ''
       operationId: deleteStudent
@@ -129,6 +129,10 @@ paths:
           name: placeOfBirth
           schema:
             type: string
+        - in: query
+          name: polityName
+          schema:
+            type: string    
         - in: query
           name: sorts
           description: to sort +displayName for ASC and -displayName for DESC
