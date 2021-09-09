@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.7.0
+  version: 0.8.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -245,6 +245,12 @@ paths:
           name: locationEmail
           schema:
             type: string
+        - in: query
+          name: sorts
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DioceseSortCriteria'
         - in: query
           name: offset
           schema:
@@ -840,6 +846,17 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    DioceseSortCriteria:
+      type: string
+      enum:
+        - NAME_ASC
+        - NAME_DESC
+        - LOCATION_NAME_ASC
+        - LOCATION_NAME_DESC
+        - LOCATION_EMAIL_ASC
+        - LOCATION_EMAIL_DESC
+        - LOCATION_ADDRESS_ASC
+        - LOCATION_ADDRESS_DESC
     Code:
       type: string
       enum:
