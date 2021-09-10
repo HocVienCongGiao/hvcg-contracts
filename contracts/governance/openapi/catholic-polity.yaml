@@ -11,7 +11,7 @@ servers:
 info:
   description: >-
     This is a server for Catholic Polity info.
-  version: 0.8.0
+  version: 0.9.0
   title: OpenAPI Catholic Polity info
   license:
     name: Apache-2.0
@@ -33,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Parish'
+                $ref: '#/components/schemas/ParishMutation'
         '405':
           description: Invalid input
       requestBody:
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Province'
+                $ref: '#/components/schemas/ProvinceMutation'
         '405':
           description: Invalid input
       requestBody:
@@ -73,7 +73,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Diocese'
+                $ref: '#/components/schemas/DioceseMutation'
         '405':
           description: Invalid input
       requestBody:
@@ -93,7 +93,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deanery'
+                $ref: '#/components/schemas/DeaneryMutation'
         '405':
           description: Invalid input
       requestBody:
@@ -113,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Institute'
+                $ref: '#/components/schemas/InstituteMutation'
         '405':
           description: Invalid input
       requestBody:
@@ -382,7 +382,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Parish'
+                $ref: '#/components/schemas/ParishView'
         '400':
           description: Invalid ID supplied
         '404':
@@ -408,7 +408,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Province'
+                $ref: '#/components/schemas/ProvinceView'
         '400':
           description: Invalid ID supplied
         '404':
@@ -434,7 +434,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Diocese'
+                $ref: '#/components/schemas/DioceseView'
         '400':
           description: Invalid ID supplied
         '404':
@@ -460,7 +460,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deanery'
+                $ref: '#/components/schemas/DeaneryView'
         '400':
           description: Invalid ID supplied
         '404':
@@ -486,7 +486,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Institute'
+                $ref: '#/components/schemas/InstituteView'
         '400':
           description: Invalid ID supplied
         '404':
@@ -511,7 +511,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Parish'
+                $ref: '#/components/schemas/ParishMutation'
         '400':
           description: Invalid ID supplied
         '404':
@@ -564,7 +564,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Province'
+                $ref: '#/components/schemas/ProvinceMutation'
         '400':
           description: Invalid ID supplied
         '404':
@@ -618,7 +618,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deanery'
+                $ref: '#/components/schemas/DeaneryMutation'
         '400':
           description: Invalid ID supplied
         '404':
@@ -672,7 +672,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Diocese'
+                $ref: '#/components/schemas/DioceseMutation'
         '400':
           description: Invalid ID supplied
         '404':
@@ -726,7 +726,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Institute'
+                $ref: '#/components/schemas/InstituteMutation'
         '400':
           description: Invalid ID supplied
         '404':
@@ -770,42 +770,42 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Parish'
+              $ref: '#/components/schemas/ParishMutation'
       description: List of parishes object
       required: true
     ParishRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Parish'
+            $ref: '#/components/schemas/ParishMutation'
     ProvinceArray:
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Province'
+              $ref: '#/components/schemas/ProvinceMutation'
       description: List of province object
       required: true
     ProvinceRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Province'
+            $ref: '#/components/schemas/ProvinceMutation'
     DeaneryArray:
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Deanery'
+              $ref: '#/components/schemas/DeaneryMutation'
       description: List of deaneries object
       required: true
     DeaneryRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Deanery'
+            $ref: '#/components/schemas/DeaneryMutation'
       description: Parish object that needs to be added to the database
       required: true
     DioceseArray:
@@ -814,14 +814,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Diocese'
+              $ref: '#/components/schemas/DioceseMutation'
       description: List of dioceses object
       required: true
     DioceseRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Diocese'
+            $ref: '#/components/schemas/DioceseMutation'
       description: Diocese object that needs to be added to the database
       required: true
     InstituteArray:
@@ -830,14 +830,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Institute'
+              $ref: '#/components/schemas/InstituteMutation'
       description: List of institutes object
       required: true
     InstituteRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Institute'
+            $ref: '#/components/schemas/InstituteMutation'
       description: Institute object that needs to be added to the database
       required: true
   securitySchemes:
@@ -881,7 +881,7 @@ components:
           type: string
         personInCharge:
           type: string
-    Province:
+    ProvinceView:
       allOf:
         - $ref: "#/components/schemas/Polity"
       type: object
@@ -890,7 +890,7 @@ components:
       properties:
         code:
           $ref: "#/components/schemas/Code"
-    Diocese:
+    DioceseView:
       allOf:
         - $ref: "#/components/schemas/Polity"
       type: object
@@ -899,8 +899,8 @@ components:
         - "province"
       properties:
         province:
-          $ref: "#/components/schemas/Province"
-    Deanery:
+          $ref: "#/components/schemas/ProvinceView"
+    DeaneryView:
       allOf:
         - $ref: "#/components/schemas/Polity"
       type: object
@@ -909,8 +909,8 @@ components:
         - "diocese"
       properties:
         diocese:
-          $ref: "#/components/schemas/Diocese"
-    Parish:
+          $ref: "#/components/schemas/DioceseView"
+    ParishView:
       allOf:
         - $ref: "#/components/schemas/Polity"
       type: object
@@ -918,8 +918,8 @@ components:
         - "deanery"
       properties:
         deanery:
-          $ref: "#/components/schemas/Deanery"
-    Institute:
+          $ref: "#/components/schemas/DeaneryView"
+    InstituteView:
       allOf:
         - $ref: "#/components/schemas/Polity"
       type: object
@@ -928,7 +928,7 @@ components:
         dioceses:
           type: array
           items:
-            $ref: '#/components/schemas/Diocese'
+            $ref: '#/components/schemas/DioceseView'
         hasMore:
           type: boolean
         total:
@@ -939,7 +939,7 @@ components:
         deaneries:
           type: array
           items:
-            $ref: '#/components/schemas/Deanery'
+            $ref: '#/components/schemas/DeaneryView'
         hasMore:
           type: boolean
         total:
@@ -950,7 +950,7 @@ components:
         parishes:
           type: array
           items:
-            $ref: '#/components/schemas/Parish'
+            $ref: '#/components/schemas/ParishView'
         hasMore:
           type: boolean
         total:
@@ -961,7 +961,7 @@ components:
         provinces:
           type: array
           items:
-            $ref: '#/components/schemas/Province'
+            $ref: '#/components/schemas/ProvinceView'
         hasMore:
           type: boolean
         total:
@@ -972,12 +972,56 @@ components:
         institutes:
           type: array
           items:
-            $ref: '#/components/schemas/Institute'
+            $ref: '#/components/schemas/InstituteView'
         hasMore:
           type: boolean
         total:
           type: integer
           format: int64
-
+    ProvinceMutation:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      required:
+        - "code"
+      properties:
+        code:
+          $ref: "#/components/schemas/Code"
+    DioceseMutation:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      description: An area controlled by a ecclesiastical province
+      required:
+        - "provinceId"
+      properties:
+        provinceId:
+          type: string
+          format: uuid
+    DeaneryMutation:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      description: An area controlled by a diocese
+      required:
+        - "dioceseId"
+      properties:
+        dioceseId:
+          type: string
+          format: uuid
+    ParishMutation:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
+      required:
+        - "deaneryId"
+      properties:
+        deaneryId:
+          type: string
+          format: uuid
+    InstituteMutation:
+      allOf:
+        - $ref: "#/components/schemas/Polity"
+      type: object
 security:
   - polity_auth: []
