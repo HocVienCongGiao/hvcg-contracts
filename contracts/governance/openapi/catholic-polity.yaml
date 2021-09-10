@@ -26,7 +26,7 @@ paths:
         - parish
       summary: Add new parish
       description: ''
-      operationId: add_parish
+      operationId: addParish
       responses:
         '200':
           description: successful operation
@@ -46,7 +46,7 @@ paths:
         - province
       summary: Add new province
       description: ''
-      operationId: add_province
+      operationId: addProvince
       responses:
         '200':
           description: successful operation
@@ -66,7 +66,7 @@ paths:
         - diocese
       summary: Add new diocese
       description: ''
-      operationId: add_diocese
+      operationId: addDiocese
       responses:
         '200':
           description: successful operation
@@ -86,7 +86,7 @@ paths:
         - deanery
       summary: Add new deanery
       description: ''
-      operationId: add_deanery
+      operationId: addDeanery
       responses:
         '200':
           description: successful operation
@@ -106,7 +106,7 @@ paths:
         - institute
       summary: Add new institute
       description: ''
-      operationId: add_institute
+      operationId: addInstitute
       responses:
         '200':
           description: successful operation
@@ -126,7 +126,7 @@ paths:
         - parish
       summary: Get all parishes
       description: Returns all parishes
-      operationId: get_parishes
+      operationId: getParishes
       parameters:
         - in: query
           name: deaneryId
@@ -175,7 +175,7 @@ paths:
         - province
       summary: Get all provinces
       description: Returns all provinces
-      operationId: get_provinces
+      operationId: getProvinces
       parameters:
         - in: query
           name: name
@@ -218,7 +218,7 @@ paths:
         - diocese
       summary: Get all dioceses
       description: Returns all dioceses
-      operationId: get_dioceses
+      operationId: getDioceses
       parameters:
         - in: query
           name: provinceId
@@ -284,7 +284,7 @@ paths:
         - deanery
       summary: Get deaneries
       description: Returns all deaneries
-      operationId: get_deaneries
+      operationId: getDeaneries
       parameters:
         - in: query
           name: dioceseId
@@ -328,7 +328,7 @@ paths:
         - institute
       summary: Get institutes
       description: Returns all institutes
-      operationId: get_institutes
+      operationId: getInstitutes
       parameters:
         - in: query
           name: name
@@ -367,7 +367,7 @@ paths:
         - parish
       summary: Find parish by ID
       description: Returns a single parish
-      operationId: get_parish_by_id
+      operationId: getParishById
       parameters:
         - name: id
           in: path
@@ -393,7 +393,7 @@ paths:
         - province
       summary: Find province by ID
       description: Returns a single province
-      operationId: get_province_by_id
+      operationId: getProvinceById
       parameters:
         - name: id
           in: path
@@ -419,7 +419,7 @@ paths:
         - diocese
       summary: Find diocese by ID
       description: Returns a single diocese
-      operationId: get_diocese_by_id
+      operationId: getDioceseById
       parameters:
         - name: id
           in: path
@@ -445,7 +445,7 @@ paths:
         - deanery
       summary: Find deanery by ID
       description: Returns a single deanery
-      operationId: get_deanery_by_id
+      operationId: getDeaneryById
       parameters:
         - name: id
           in: path
@@ -471,7 +471,7 @@ paths:
         - institute
       summary: Find institute by ID
       description: Returns a single institute
-      operationId: get_institute_by_id
+      operationId: getInstituteById
       parameters:
         - name: id
           in: path
@@ -496,7 +496,7 @@ paths:
       tags:
         - parish
       summary: Update an existing parish
-      operationId: update_parish
+      operationId: updateParish
       parameters:
         - name: id
           in: path
@@ -526,7 +526,7 @@ paths:
       tags:
         - parish
       summary: "Delete parish by ID"
-      operationId: delete_parish
+      operationId: deleteParish
       parameters:
         - name: id
           in: path
@@ -549,7 +549,7 @@ paths:
       tags:
         - province
       summary: Update an existing province
-      operationId: update_province
+      operationId: updateProvince
       parameters:
         - name: id
           in: path
@@ -579,7 +579,7 @@ paths:
       tags:
         - province
       summary: "Delete province by ID"
-      operationId: delete_province
+      operationId: deleteProvince
       parameters:
         - name: id
           in: path
@@ -603,7 +603,7 @@ paths:
         - deanery
       summary: Update an existing deanery
       description: ''
-      operationId: update_deanery
+      operationId: updateDeanery
       parameters:
         - name: id
           in: path
@@ -633,7 +633,7 @@ paths:
       tags:
         - deanery
       summary: "Delete deanery by ID"
-      operationId: delete_deanery
+      operationId: deleteDeanery
       parameters:
         - name: id
           in: path
@@ -657,7 +657,7 @@ paths:
         - diocese
       summary: Update an existing diocese
       description: ''
-      operationId: update_diocese
+      operationId: updateDiocese
       parameters:
         - name: id
           in: path
@@ -687,7 +687,7 @@ paths:
       tags:
         - diocese
       summary: "Delete diocese by ID"
-      operationId: delete_diocese
+      operationId: deleteDiocese
       parameters:
         - name: id
           in: path
@@ -711,7 +711,7 @@ paths:
         - institute
       summary: Update an existing institute
       description: ''
-      operationId: update_institute
+      operationId: updateInstitute
       parameters:
         - name: id
           in: path
@@ -741,7 +741,7 @@ paths:
       tags:
         - institute
       summary: "Delete institute by ID"
-      operationId: delete_institute
+      operationId: deleteInstitute
       parameters:
         - name: id
           in: path
