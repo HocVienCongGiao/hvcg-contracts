@@ -105,6 +105,10 @@ jobs:
                {
                 \"url\": \"/contracts/academics/openapi/student.yaml\",
                 \"name\": \"academics/student.yaml\"
+               },
+               {
+                \"url\": \"/contracts/enrolable/openapi/enrolable.yaml\",
+                \"name\": \"enrolable/enrolable.yaml\"
                }
              ]
            ' >> contracts.json

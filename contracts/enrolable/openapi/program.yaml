@@ -1,0 +1,268 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
+    variables:
+      env:
+        enum:
+          - dev
+          - prod
+        default: dev
+  
+info:
+  description: >-
+    This is a sample server program info server. For this sample, you can use the api key
+    `special-key` to test the authorization filters.
+  version: 0.0.1
+  title: OpenAPI program info
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: program
+    description: Everything about your programs
+paths:
+  /mutation-api/enrolable-service/programs:
+    post:
+      tags:
+        - program-mutation        
+      summary: Add new program
+      description: ''
+      operationId: addProgram
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/ProgramRequest'
+      security:
+        - program_auth: []
+  /mutation-api/enrolable-service/programs/{id}:
+    put:
+      tags:
+        - program-mutation
+      summary: Update an existing program
+      description: ''
+      operationId: updateProgram
+      parameters:
+        - name: id
+          in: path
+          description: ID of program to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: program not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/ProgramRequest'
+      security:
+        - program_auth: []
+    delete:
+      tags:
+        - program-mutation
+      summary: Deletes a program
+      description: ''
+      operationId: deleteProgram
+      parameters:
+        - name: id
+          in: path
+          description: ID of program to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: program not found
+      security:
+        - program_auth: []        
+  /query-api/enrolable-service/programs:
+    get:
+      tags:
+        - program-query
+      summary: Get all programs
+      description: Returns all programs
+      operationId: getPrograms
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+        - in: query
+          name: phone
+          schema:
+            type: string
+        - in: query
+          name: undergraduateSchool
+          schema:
+            type: string
+        - in: query
+          name: dateOfBirth
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: placeOfBirth
+          schema:
+            type: string
+        - in: query
+          name: polityName
+          schema:
+            type: string
+        - in: query
+          name: specialism
+          schema:
+            type: string            
+        - in: query
+          name: sorts
+          description: to sort +displayName for ASC and -displayName for DESC
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProgramSortCriteria'
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+          required: false
+          description: The number of programs to skip before starting to collect the result set.
+        - in: query
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          description: The number of programs to return.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramViewCollection'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: program not found
+  /query-api/enrolable-service/programs/{id}:
+    get:
+      tags:
+        - program-query
+      summary: Find program by ID
+      description: Returns a single program
+      operationId: getProgramById
+      parameters:
+        - name: id
+          in: path
+          description: ID of program to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: program not found
+
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  requestBodies:
+    ProgramArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Program'
+      description: List of program object
+      required: true
+    ProgramRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Program'
+      description: program object that needs to be added to the database
+      required: true
+  securitySchemes:
+    program_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ProgramSortCriteria:
+      type: string
+      enum:
+        - NAME_ASC
+        - NAME_DESC
+    Program:
+      title: program
+      description: program info
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 53f549b9-99bf-4e12-88e3-c2f868953283
+      xml:
+        name: program
+    ProgramView:
+      title: program View
+      description: program View
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 53f549b9-99bf-4e12-88e3-c2f868953283
+      xml:
+        name: program        
+    ProgramViewCollection:
+      properties:
+        programs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgramView'
+        hasMore:
+          type: boolean
+        total:
+          type: integer
+          format: int64
+
+security:
+  - program_auth: []
