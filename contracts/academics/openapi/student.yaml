@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.4.0
+  version: 0.5.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -238,6 +238,12 @@ components:
         - LOCATION_NAME_DESC
         - PLACE_OF_BIRTH_ASC
         - PLACE_OF_BIRTH_DESC
+    StudentTitle:
+      type: string
+      enum:
+        - PRIEST
+        - MONK
+        - NUN        
     StudentUpsert:
       title: StudentUpsert
       description: Student info
@@ -254,11 +260,7 @@ components:
             format: uuid
             example: 40e6215d-b5c6-4896-987c-f30f3678f608
         title:
-          type: string
-          enum:
-            - PRIEST
-            - MONK
-            - NUN
+          $ref: '#/components/schemas/StudentTitle'
         firstName:
           type: string
           example: Chien
@@ -314,11 +316,7 @@ components:
           type: string
           example: Phero
         title:
-          type: string
-          enum:
-            - PRIEST
-            - MONK
-            - NUN
+          $ref: '#/components/schemas/StudentTitle'
         name:
           type: string
           example: Nguyen Huu Chien
