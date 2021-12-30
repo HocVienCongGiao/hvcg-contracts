@@ -138,13 +138,13 @@ workflows:
           filters: 
             branches: 
               only: 
-                - pmhieu_dev           
+                - main           
       - publish_crate:
           context: build_push
           filters: 
             branches: 
               only: 
-                - pmhieu_dev           
+                - main           
           requires:
             - generate_crate
       - push_contracts:
@@ -152,6 +152,6 @@ workflows:
           filters: 
             branches: 
               only: 
-                - pmhieu_dev           
+                - main           
                 
   version: 2
