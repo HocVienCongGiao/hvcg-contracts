@@ -244,12 +244,12 @@ components:
         - PRIEST
         - MONK
         - NUN
-    EducationalLevel:
+    EducationalStage:
       type: string
       enum:
-        - PRIMARY_SCHOOL
+        - ELEMENTARY_SCHOOL
         - MIDDLE_SCHOOL
-        - SECONARY_SCHOOL
+        - HIGH_SCHOOL
         - BACHELOR
         - MASTER
     StudentUpsert:
@@ -299,8 +299,8 @@ components:
           type: string
           default: Vietnamese
           example: British
-        educationalLevel:
-          $ref: '#/components/schemas/EducationalLevel'
+        EducationalStage:
+          $ref: '#/components/schemas/EducationalStage'
         race:
           type: string
           example: Kinh
