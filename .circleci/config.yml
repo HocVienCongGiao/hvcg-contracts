@@ -23,7 +23,7 @@ jobs:
             echo "yes"; 
             bounded_context=$(basename $(dirname $(dirname $file)))
             echo "Bounded Context name is " + $bounded_context
-            java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o workspace/rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name}
+             java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o workspace/rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name} -c ./bin/config.yaml --type-mappings=date=NaiveDate
             fi
             done
           name: "Generate Rust sources"
