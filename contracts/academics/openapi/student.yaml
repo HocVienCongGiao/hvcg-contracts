@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.6.0
+  version: 0.7.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -244,6 +244,13 @@ components:
         - PRIEST
         - MONK
         - NUN
+    VowProgress:
+      type: string
+      enum:
+        - SOLEMN_VOW # khấn trọn
+        - SIMPLE_VOW # khấn tạm
+        - NOVICE # dự tu
+        - PREPARATION # nhà tập
     EducationalStage:
       type: string
       enum:
@@ -269,6 +276,9 @@ components:
             example: 40e6215d-b5c6-4896-987c-f30f3678f608
         title:
           $ref: '#/components/schemas/StudentTitle'
+        progress:
+          description: value will be null if title is PRIEST
+          $ref: '#/components/schemas/VowProgress'
         firstName:
           type: string
           example: Chien
@@ -292,6 +302,9 @@ components:
         phone:
           type: string
           example: +84 1228019700
+        address:
+          type: string
+          example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
         undergraduateSchool:
           type: string
           example: Dai Chung Vien Thanh Quy - Can Tho
@@ -311,8 +324,17 @@ components:
         isMale:
           type: boolean
           default: true
-        
-
+        nationalId:
+          type: string
+          example: 099005014079
+        passport:
+          type: string
+        DateOfIssue:
+          type: string
+          format: date
+        PlaceOfIssue:
+          type: string
+          format: date
       xml:
         name: student
     StudentView:
