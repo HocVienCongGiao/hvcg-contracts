@@ -264,13 +264,17 @@ components:
       properties:
         educationalLevel:
           $ref: '#/components/schemas/EducationalLevel'
+          example: BACHELOR
         schoolName:
           type: string
+          example: Dai Chung Vien Thanh Quy - Can Tho
         major:
           type: string
+          example: Than hoc
         graduateYear:
           type: number
           format: integer
+          example: 2010
       required:
         - educationalLevel
         - schoolName
@@ -330,9 +334,6 @@ components:
         address:
           type: string
           example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
-        undergraduateSchool:
-          type: string
-          example: Dai Chung Vien Thanh Quy - Can Tho
         nationality:
           type: string
           default: Vietnamese
