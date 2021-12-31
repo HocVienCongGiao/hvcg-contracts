@@ -251,7 +251,7 @@ components:
         - SIMPLE_VOW # khấn tạm
         - NOVICE # dự tu
         - PREPARATION # nhà tập
-    EducationalStage:
+    EducationalLevel:
       type: string
       enum:
         - ELEMENTARY_SCHOOL
@@ -259,6 +259,32 @@ components:
         - HIGH_SCHOOL
         - BACHELOR
         - MASTER
+    EducationalStage:
+      type: object
+      properties:
+        educationalLevel:
+          $ref: '#/components/schemas/EducationalLevel'
+        schoolName:
+          type: string
+        major:
+          type: string
+        graduateYear:
+          type: number
+          format: integer
+      required:
+        - educationalLevel
+        - schoolName
+    IdProviderType:
+      type: string
+      enum:
+        - NATIONAL_ID
+        - PASSPORT
+    ForeignLanguageLevel:
+      type: string
+      enum:
+        - BEGINNER
+        - INTERMEDIATE
+        - ADVANCED
     StudentUpsert:
       title: StudentUpsert
       description: Student info
@@ -277,7 +303,6 @@ components:
         title:
           $ref: '#/components/schemas/StudentTitle'
         progress:
-          description: value will be null if title is PRIEST
           $ref: '#/components/schemas/VowProgress'
         firstName:
           type: string
@@ -312,8 +337,10 @@ components:
           type: string
           default: Vietnamese
           example: British
-        EducationalStage:
-          $ref: '#/components/schemas/EducationalStage'
+        educationalStage:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationalStage'
         race:
           type: string
           example: Kinh
@@ -321,20 +348,21 @@ components:
           type: string
           format: uuid
           example: ec645abf-bc55-413c-a4c7-c55ff701d080
-        isMale:
-          type: boolean
-          default: true
-        nationalId:
+        iDprovider:
           type: string
           example: 099005014079
+        iDproviderType:
+          $ref: '#/components/schemas/IdProviderType'
         passport:
           type: string
-        DateOfIssue:
+        dateOfIssue:
           type: string
           format: date
-        PlaceOfIssue:
+        placeOfIssue:
           type: string
           format: date
+        foreignLanguageLevel:
+          $ref: '#/components/schemas/ForeignLanguageLevel'
       xml:
         name: student
     StudentView:
