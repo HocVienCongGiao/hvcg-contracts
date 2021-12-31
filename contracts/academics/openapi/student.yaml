@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.6.0
+  version: 0.7.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -247,8 +247,8 @@ components:
     VowProgress:
       type: string
       enum:
-        - SOLEMN_VOWS # khấn trọn
-        - SIMPLE_VOWS # khấn tạm
+        - SOLEMN_VOW # khấn trọn
+        - SIMPLE_VOW # khấn tạm
         - NOVICE # dự tu
         - PREPARATION # nhà tập
     EducationalStage:
@@ -324,10 +324,11 @@ components:
         isMale:
           type: boolean
           default: true
-        personalId:
+        nationalId:
           type: string
-          description: national ID or passport ID
           example: 099005014079
+        passport:
+          type: string
         DateOfIssue:
           type: string
           format: date
