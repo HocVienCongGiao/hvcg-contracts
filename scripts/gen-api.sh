@@ -1,1 +1,1 @@
-java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/academics/openapi/student.yaml -g rust-server -o student-application-api --package-name=hvcg_academics_openapi_student-0.5.0 --type-mappings=DateTime=Date
+java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/example/openapi/entity/v1.yaml -g rust-server -o rust_api_server-custom_config --package-name=hvcg_example_openapi_entity
