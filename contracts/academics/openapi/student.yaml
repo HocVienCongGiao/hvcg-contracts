@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.7.0
+  version: 0.8.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -375,7 +375,6 @@ components:
           format: date
         placeOfIssue:
           type: string
-          format: date
       xml:
         name: student
     StudentView:
