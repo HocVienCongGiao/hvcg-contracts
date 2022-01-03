@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.7.0
+  version: 0.8.0
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -251,7 +251,7 @@ components:
         - SIMPLE_VOW # khấn tạm
         - NOVICE # dự tu
         - PREPARATION # nhà tập
-    EducationalStage:
+    EducationalLevel:
       type: string
       enum:
         - ELEMENTARY_SCHOOL
@@ -259,6 +259,46 @@ components:
         - HIGH_SCHOOL
         - BACHELOR
         - MASTER
+    EducationalStage:
+      type: object
+      properties:
+        educationalLevel:
+          $ref: '#/components/schemas/EducationalLevel'
+        schoolName:
+          type: string
+          example: Dai Chung Vien Thanh Quy - Can Tho
+        major:
+          type: string
+          example: Than hoc
+        graduateYear:
+          type: number
+          format: integer
+          example: 2010
+      required:
+        - educationalLevel
+        - schoolName
+    ForeignLanguage:
+      type: object
+      properties:
+        language:
+          type: string
+          example: English
+        level:
+          $ref: '#/components/schemas/ForeignLanguageLevel'
+      required:
+        - language
+        - level
+    IdNumberProvider:
+      type: string
+      enum:
+        - NATIONAL_ID
+        - PASSPORT
+    ForeignLanguageLevel:
+      type: string
+      enum:
+        - BEGINNER
+        - INTERMEDIATE
+        - ADVANCED
     StudentUpsert:
       title: StudentUpsert
       description: Student info
@@ -277,7 +317,6 @@ components:
         title:
           $ref: '#/components/schemas/StudentTitle'
         progress:
-          description: value will be null if title is PRIEST
           $ref: '#/components/schemas/VowProgress'
         firstName:
           type: string
@@ -287,7 +326,7 @@ components:
           example: Huu
         lastName:
           type: string
-          example: Nguyen          
+          example: Nguyen
         dateOfBirth:
           type: string
           format: date
@@ -305,15 +344,18 @@ components:
         address:
           type: string
           example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
-        undergraduateSchool:
-          type: string
-          example: Dai Chung Vien Thanh Quy - Can Tho
         nationality:
           type: string
           default: Vietnamese
           example: British
-        EducationalStage:
-          $ref: '#/components/schemas/EducationalStage'
+        educationalStage:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationalStage'
+        foreignLanguage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForeignLanguage'
         race:
           type: string
           example: Kinh
@@ -321,20 +363,18 @@ components:
           type: string
           format: uuid
           example: ec645abf-bc55-413c-a4c7-c55ff701d080
-        isMale:
-          type: boolean
-          default: true
-        nationalId:
+        idNumber:
           type: string
           example: 099005014079
+        idNumberProvider:
+          $ref: '#/components/schemas/IdNumberProvider'
         passport:
           type: string
-        DateOfIssue:
+        dateOfIssue:
           type: string
           format: date
-        PlaceOfIssue:
+        placeOfIssue:
           type: string
-          format: date
       xml:
         name: student
     StudentView:
