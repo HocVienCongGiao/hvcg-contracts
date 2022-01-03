@@ -349,10 +349,10 @@ components:
           type: string
           format: uuid
           example: ec645abf-bc55-413c-a4c7-c55ff701d080
-        iDprovider:
+        idProvider:
           type: string
           example: 099005014079
-        iDproviderType:
+        idProviderType:
           $ref: '#/components/schemas/IdProviderType'
         passport:
           type: string
