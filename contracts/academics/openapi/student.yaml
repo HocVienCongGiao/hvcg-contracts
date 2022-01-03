@@ -264,7 +264,6 @@ components:
       properties:
         educationalLevel:
           $ref: '#/components/schemas/EducationalLevel'
-          example: BACHELOR
         schoolName:
           type: string
           example: Dai Chung Vien Thanh Quy - Can Tho
@@ -278,7 +277,18 @@ components:
       required:
         - educationalLevel
         - schoolName
-    IdProviderType:
+    ForeignLanguage:
+      type: object
+      properties:
+        language:
+          type: string
+          example: English
+        level:
+          $ref: '#/components/schemas/ForeignLanguageLevel'
+      required:
+        - language
+        - level
+    IdNumberProvider:
       type: string
       enum:
         - NATIONAL_ID
@@ -342,6 +352,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EducationalStage'
+        foreignLanguage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForeignLanguage'
         race:
           type: string
           example: Kinh
@@ -349,11 +363,11 @@ components:
           type: string
           format: uuid
           example: ec645abf-bc55-413c-a4c7-c55ff701d080
-        idProvider:
+        idNumber:
           type: string
           example: 099005014079
-        idProviderType:
-          $ref: '#/components/schemas/IdProviderType'
+        idNumberProvider:
+          $ref: '#/components/schemas/IdNumberProvider'
         passport:
           type: string
         dateOfIssue:
@@ -362,8 +376,6 @@ components:
         placeOfIssue:
           type: string
           format: date
-        foreignLanguageLevel:
-          $ref: '#/components/schemas/ForeignLanguageLevel'
       xml:
         name: student
     StudentView:

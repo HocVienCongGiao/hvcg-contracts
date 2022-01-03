@@ -1,2 +1,4 @@
 .idea
 logs
+bin/openapi-generator-cli
+student-appication-api
