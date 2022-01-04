@@ -7,12 +7,12 @@ servers:
           - dev
           - prod
         default: dev
-  
+
 info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.8.0
+  version: 0.8.1
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -24,7 +24,7 @@ paths:
   /mutation-api/student-service/students:
     post:
       tags:
-        - student-mutation        
+        - student-mutation
       summary: Add new student
       description: ''
       operationId: addStudent
@@ -40,7 +40,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/StudentRequest'
       security:
-        - student_auth: []
+        - student_auth: [ ]
   /mutation-api/student-service/students/{id}:
     put:
       tags:
@@ -72,7 +72,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/StudentRequest'
       security:
-        - student_auth: []
+        - student_auth: [ ]
     delete:
       tags:
         - student-mutation
@@ -95,7 +95,7 @@ paths:
         '404':
           description: student not found
       security:
-        - student_auth: []        
+        - student_auth: [ ]
   /query-api/student-service/students:
     get:
       tags:
@@ -136,7 +136,7 @@ paths:
         - in: query
           name: specialism
           schema:
-            type: string            
+            type: string
         - in: query
           name: sorts
           description: to sort +displayName for ASC and -displayName for DESC
@@ -259,6 +259,8 @@ components:
         - HIGH_SCHOOL
         - BACHELOR
         - MASTER
+        - DOCTOR
+        - OTHER
     EducationalStage:
       type: object
       properties:
@@ -359,17 +361,11 @@ components:
         race:
           type: string
           example: Kinh
-        programId:
-          type: string
-          format: uuid
-          example: ec645abf-bc55-413c-a4c7-c55ff701d080
         idNumber:
           type: string
           example: 099005014079
         idNumberProvider:
           $ref: '#/components/schemas/IdNumberProvider'
-        passport:
-          type: string
         dateOfIssue:
           type: string
           format: date
@@ -429,7 +425,7 @@ components:
         #   type: string
         #   example: Thac si Than hoc Thanh Kinh K2
       xml:
-        name: student-view        
+        name: student-view
     StudentViewCollection:
       required:
         - students
@@ -445,4 +441,4 @@ components:
           format: int64
 
 security:
-  - student_auth: []
+  - student_auth: [ ]
