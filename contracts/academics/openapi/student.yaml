@@ -361,10 +361,6 @@ components:
         race:
           type: string
           example: Kinh
-        programId:
-          type: string
-          format: uuid
-          example: ec645abf-bc55-413c-a4c7-c55ff701d080
         idNumber:
           type: string
           example: 099005014079
