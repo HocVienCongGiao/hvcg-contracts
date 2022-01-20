@@ -4,7 +4,7 @@ servers:
 info:
   description: >-
     This is a sample server Petstore server. For this sample, you can use the api key
-    `special-key` to test the authorization filters.
+    `special-key` to test the authorization filters. Test1
   version: 1.0.6
   title: OpenAPI Petstore
   license:
