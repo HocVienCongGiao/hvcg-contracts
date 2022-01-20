@@ -36,5 +36,5 @@ jobs:
           fi
           done
       - name: Verify result
-        run: pwd && ls -l rust-openapi
+        run: ls -l /home/runner/work/hvcg-contracts/hvcg-contracts
 
