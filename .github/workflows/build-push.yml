@@ -1,0 +1,13 @@
+name: Build and Push
+
+on:
+  push:
+    branches:
+      - feature/convert_to_github_action
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    name: Example job
+    steps:
+      - name: Setup example job
+        run: echo "to the moon"
