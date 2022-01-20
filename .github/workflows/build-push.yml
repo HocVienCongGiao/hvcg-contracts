@@ -36,5 +36,5 @@ jobs:
           fi
           done
       - name: Verify result
-        run: ls -l /home/runner/work/hvcg-contracts/hvcg-contracts/rus-openapi
+        run: ls -l /home/runner/work/hvcg-contracts/hvcg-contracts/rust-openapi
 
