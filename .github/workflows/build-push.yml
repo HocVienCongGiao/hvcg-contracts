@@ -20,7 +20,7 @@ jobs:
       - name: Check java version
         run: java --version
       - name: Create rust-openapi folder
-        run: "mkdir -p workspace/rust-openapi/.cargo"
+        run: mkdir -p workspace/rust-openapi/.cargo
       - name: Generate Rust sources
         run: |
           files=`git diff-tree --no-commit-id --name-only -r HEAD`
@@ -36,5 +36,5 @@ jobs:
           fi
           done
       - name: Verify result
-        run: "ls workspace/rust-openapi"
+        run: pwd && ls workspace/rust-openapi
 
