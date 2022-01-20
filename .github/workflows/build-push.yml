@@ -20,7 +20,7 @@ jobs:
       - name: Check java version
         run: java --version
       - name: Create rust-openapi folder
-        run: mkdir -p workspace/rust-openapi/.cargo
+        run: mkdir -p rust-openapi/.cargo
       - name: Generate Rust sources
         run: |
           files=`git diff-tree --no-commit-id --name-only -r HEAD`
@@ -32,9 +32,9 @@ jobs:
           echo "yes";
           bounded_context=$(basename $(dirname $(dirname $file)))
           echo "Bounded Context name is " + $bounded_context
-           java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o workspace/rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name} -c ./bin/config.yaml --type-mappings=date=NaiveDate
+           java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name} -c ./bin/config.yaml --type-mappings=date=NaiveDate
           fi
           done
       - name: Verify result
-        run: pwd && ls workspace/rust-openapi
+        run: pwd && ls -l rust-openapi
 
