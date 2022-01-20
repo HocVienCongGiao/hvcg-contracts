@@ -19,4 +19,23 @@ jobs:
           java-version: '11'
       - name: Check java version
         run: java --version
+      - name: Create rust-openapi folder
+        run: "mkdir -p workspace/rust-openapi/.cargo"
+      - name: Generate Rust sources
+        run: |
+          files=`git diff-tree --no-commit-id --name-only -r HEAD`
+          for file in $files; do
+          if [[ $file == contracts* ]]; then
+          filename=$(basename $file)
+          entity_name=${filename%.*}
+          echo "Entity NAME is " + $entity_name
+          echo "yes"; 
+          bounded_context=$(basename $(dirname $(dirname $file)))
+          echo "Bounded Context name is " + $bounded_context
+           java -jar ./bin/openapi-generator-cli.jar generate -i ./contracts/${bounded_context}/openapi/${entity_name}.yaml -g rust-server -o workspace/rust-openapi/${bounded_context}_openapi_$entity_name --package-name=hvcg_${bounded_context}_openapi_${entity_name} -c ./bin/config.yaml --type-mappings=date=NaiveDate
+          fi
+          done
+      - name: Verify result
+        run: "ls workspace/rust-openapi"
+        working-directory: ~/hvcg-contracts
 
