@@ -138,13 +138,13 @@ workflows:
           filters: 
             branches: 
               only: 
-                - main           
+                - publish_crate           
       - publish_crate:
           context: build_push
           filters: 
             branches: 
               only: 
-                - main           
+                - publish_crate           
           requires:
             - generate_crate
       - push_contracts:
@@ -152,6 +152,6 @@ workflows:
           filters: 
             branches: 
               only: 
-                - main           
+                - publish_crate           
                 
   version: 2
