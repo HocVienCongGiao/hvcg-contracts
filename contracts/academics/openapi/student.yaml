@@ -12,7 +12,7 @@ info:
   description: >-
     This is a sample server Student info server. For this sample, you can use the api key
     `special-key` to test the authorization filters.
-  version: 0.8.1
+  version: 0.8.2
   title: OpenAPI student info
   license:
     name: Apache-2.0
@@ -301,6 +301,19 @@ components:
         - BEGINNER
         - INTERMEDIATE
         - ADVANCED
+    PersonalIdNumber:
+      type: object
+      properties:
+        idNumber:
+          type: string
+          example: 099005014079
+        idNumberProvider:
+          $ref: '#/components/schemas/IdNumberProvider'
+        dateOfIssue:
+          type: string
+          format: date
+        placeOfIssue:
+          type: string
     StudentUpsert:
       title: StudentUpsert
       description: Student info
@@ -361,16 +374,10 @@ components:
         race:
           type: string
           example: Kinh
-        idNumber:
-          type: string
-          example: 099005014079
-        idNumberProvider:
-          $ref: '#/components/schemas/IdNumberProvider'
-        dateOfIssue:
-          type: string
-          format: date
-        placeOfIssue:
-          type: string
+        personalIdNumber:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalIdNumber'
       xml:
         name: student
     StudentView:
