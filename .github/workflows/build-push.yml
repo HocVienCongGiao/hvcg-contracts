@@ -37,4 +37,6 @@ jobs:
           done
       - name: Verify result
         run: ls -l /home/runner/work/hvcg-contracts/hvcg-contracts/rust-openapi
+      - name: Happy lunar new year
+        run: echo Happy tiger year 2022
 
