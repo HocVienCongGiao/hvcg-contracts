@@ -70,6 +70,14 @@ components:
       enum:
         - NATIONAL_ID
         - PASSPORT
+    Nationality:
+      type: string
+      enum:
+        - Vietnamese
+        - Chinese
+        - British
+        - American
+        - Frech
     PersonalIdNumber:
       title: Personal ID number
       type: object
@@ -117,9 +125,7 @@ components:
           type: string
           example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
         nationality:
-          type: string
-          default: Vietnamese
-          example: British
+          $ref: '#/components/schemas/Nationality'
         race:
           type: string
           example: Kinh
