@@ -1,0 +1,182 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
+    variables:
+      env:
+        enum:
+          - dev
+          - prod
+        default: dev
+
+info:
+  version: 0.1.0
+  title: OpenAPI person info
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: person
+    description: Everything about your persons
+paths:
+  /mutation-api/person-service/persons:
+    post:
+      tags:
+        - person-mutation
+      summary: Create a new person
+      operationId: addPerson
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonUpsert'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/PersonRequest'
+      security:
+        - person_auth: [ ]
+
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  requestBodies:
+    PersonArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PersonUpsert'
+      description: List of person object
+      required: true
+    PersonRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PersonUpsert'
+      description: person object that needs to be added to the database
+      required: true
+  securitySchemes:
+    person_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    IdNumberProvider:
+      type: string
+      enum:
+        - NATIONAL_ID
+        - PASSPORT
+    PersonalIdNumber:
+      title: Personal ID number
+      type: object
+      properties:
+        idNumber:
+          type: string
+          example: 099005014079
+        idNumberProvider:
+          $ref: '#/components/schemas/IdNumberProvider'
+        dateOfIssue:
+          type: string
+          format: date
+        placeOfIssue:
+          type: string
+
+    PersonUpsert:
+      title: PersonUpsert
+      description: Person info
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Chien
+        middleName:
+          type: string
+          example: Huu
+        lastName:
+          type: string
+          example: Nguyen
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1983-05-16
+          description: date of birth in format YYYY-MM-DD
+        placeOfBirth:
+          type: string
+          example: Tra Vinh
+        email:
+          type: string
+          example: binh@sunrise.vn
+        phone:
+          type: string
+          example: +84 1228019700
+        address:
+          type: string
+          example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
+        nationality:
+          type: string
+          default: Vietnamese
+          example: British
+        race:
+          type: string
+          example: Kinh
+        personalIdNumber:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalIdNumber'
+      xml:
+        name: person
+    PersonView:
+      title: PersonView
+      description: Person View
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 53f549b9-99bf-4e12-88e3-c2f868953283
+        name:
+          type: string
+          example: Nguyen Huu Chien
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1983-05-16
+          description: date of birth in format YYYY-MM-DD
+        placeOfBirth:
+          type: string
+          example: Tra Vinh
+        email:
+          type: string
+          example: binh@sunrise.vn
+        phone:
+          type: string
+          example: +84 1228019700
+        personalIdNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonalIdNumber'
+
+      xml:
+        name: person-view
+    PersonViewCollection:
+      required:
+        - persons
+      properties:
+        persons:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonView'
+        hasMore:
+          type: boolean
+        total:
+          type: integer
+          format: int64
+
+security:
+  - person_auth: [ ]
