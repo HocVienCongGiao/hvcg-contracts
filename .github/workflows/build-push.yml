@@ -37,6 +37,40 @@ jobs:
           done
       - name: Verify result
         run: ls -l /home/runner/work/hvcg-contracts/hvcg-contracts/rust-openapi
-      - name: Happy lunar new year
-        run: echo Happy tiger year 2022
+      - name: Build dynamic contracts
+        run: "
+           echo '
+             [
+               {
+                 \"url\": \"/contracts/biography/openapi/saint.yaml\",
+                 \"name\": \"biography/saint.yaml\"
+               },
+               {
+                \"url\": \"/contracts/example/openapi/entity.yaml\",
+                \"name\": \"example/entity.yaml\"
+               },
+               {
+                \"url\": \"/contracts/iam/openapi/identity.yaml\",
+                \"name\": \"iam/identity.yaml\"
+               },
+               {
+                \"url\": \"/contracts/academics/openapi/student.yaml\",
+                \"name\": \"academics/student.yaml\"
+               },
+               {
+                \"url\": \"/contracts/enrolable/openapi/enrolable.yaml\",
+                \"name\": \"enrolable/enrolable.yaml\"
+               }
+             ]
+           ' >> contracts.json
+           && cp ./contracts.json ./contracts/contracts.json
+           "
+      - name: Copy folder to swaggerui
+        run: cp -R ./contracts ./swaggerui/
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: 'swaggerui'
+          destination_dir: s3://nhuttest
 
