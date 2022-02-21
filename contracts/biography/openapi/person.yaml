@@ -129,7 +129,7 @@ components:
         race:
           type: string
           example: Kinh
-        personalIdNumber:
+        personalIdNumbers:
           type: array
           items:
             $ref: '#/components/schemas/PersonalIdNumber'
