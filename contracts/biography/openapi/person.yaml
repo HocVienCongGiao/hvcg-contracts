@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
+  - url: "https://{env}-sg.portal.hocvienconggiao.com"
     variables:
       env:
         enum:
@@ -13,7 +13,7 @@ info:
   title: OpenAPI person info
   license:
     name: Apache-2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
   - name: person
     description: Everything about your persons
@@ -25,22 +25,22 @@ paths:
       summary: Create a new person
       operationId: addPerson
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PersonUpsert'
-        '405':
+                $ref: "#/components/schemas/PersonUpsert"
+        "405":
           description: Invalid input
       requestBody:
-        $ref: '#/components/requestBodies/PersonRequest'
+        $ref: "#/components/requestBodies/PersonRequest"
       security:
-        - person_auth: [ ]
+        - person_auth: []
 
 externalDocs:
   description: Find out more about Swagger
-  url: 'http://swagger.io'
+  url: "http://swagger.io"
 components:
   requestBodies:
     PersonArray:
@@ -49,14 +49,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/PersonUpsert'
+              $ref: "#/components/schemas/PersonUpsert"
       description: List of person object
       required: true
     PersonRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PersonUpsert'
+            $ref: "#/components/schemas/PersonUpsert"
       description: person object that needs to be added to the database
       required: true
   securitySchemes:
@@ -78,21 +78,84 @@ components:
         - British
         - American
         - Frech
+    Language:
+      type: string
+      enum:
+        - Vietnamse
+        - Chinese
+        - English
+        - France
     PersonalIdNumber:
       title: Personal ID number
       type: object
       properties:
         idNumber:
           type: string
-          example: 099005014079
+          example: 099005014120
         idNumberProvider:
-          $ref: '#/components/schemas/IdNumberProvider'
+          $ref: "#/components/schemas/IdNumberProvider"
         dateOfIssue:
           type: string
           format: date
         placeOfIssue:
           type: string
-
+    CompletedProgram:
+      title: Completed the proram
+      type: string
+      enum:
+        - Secondary
+        - University
+        - Postgraduate
+        - Doctor
+      example: University
+    Position:
+      title: Position
+      type: object
+      properties: 
+        pastor:
+          type: object
+          properties:
+            diocese:
+              type: string
+              example: Xuan loc
+            order:
+              type: string
+              example: Da minh
+        seminarian:
+          type: object
+          properties:
+            diocese:
+              type: string
+              example: Xuan loc
+            order:
+              type: string
+              example: Da minh
+        monk:
+          type: string
+          enum: 
+            - Khấn trọn
+            - Khấn tạm
+            - Nhà tập
+            - Dự tu
+        parishioner:
+          type: object
+          properties:
+            diocese:
+              type: string
+              example: Xuan loc
+            parish:
+              type: string
+              example: Doc mo
+    Program:
+      type: string
+      enum:
+        - Cử Nhân
+        - Năm chuẩn bị (tín lý)
+        - Năm chuẩn bị (kinh thánh)
+        - Thạc sĩ thần học (tín lý)
+        - Thạc sĩ thần học (kinh thánh)
+        - Thạc sĩ mục vụ
+    
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -107,6 +170,9 @@ components:
         lastName:
           type: string
           example: Nguyen
+        saintName:
+          type: string
+          example: Giuse
         dateOfBirth:
           type: string
           format: date
@@ -125,16 +191,25 @@ components:
           type: string
           example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
         nationality:
-          $ref: '#/components/schemas/Nationality'
+          $ref: "#/components/schemas/Nationality"
         race:
           type: string
           example: Kinh
         personalIdNumbers:
           type: array
           items:
-            $ref: '#/components/schemas/PersonalIdNumber'
+            $ref: "#/components/schemas/PersonalIdNumber"
+        language: 
+          $ref: '#/components/schemas/Language'
+        completedProgram:
+          $ref: "#/components/schemas/CompletedProgram"
+        position:
+          $ref: '#/components/schemas/Position'
+        program:
+          $ref: '#/components/schemas/Program'
       xml:
         name: person
+
     PersonView:
       title: PersonView
       description: Person View
@@ -166,7 +241,7 @@ components:
         personalIdNumbers:
           type: array
           items:
-            $ref: '#/components/schemas/PersonalIdNumber'
+            $ref: "#/components/schemas/PersonalIdNumber"
 
       xml:
         name: person-view
@@ -177,7 +252,7 @@ components:
         persons:
           type: array
           items:
-            $ref: '#/components/schemas/PersonView'
+            $ref: "#/components/schemas/PersonView"
         hasMore:
           type: boolean
         total:
@@ -185,4 +260,4 @@ components:
           format: int64
 
 security:
-  - person_auth: [ ]
+  - person_auth: []
