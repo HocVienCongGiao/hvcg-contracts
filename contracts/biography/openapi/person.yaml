@@ -73,18 +73,20 @@ components:
     Nationality:
       type: string
       enum:
-        - Vietnamese
-        - Chinese
-        - British
-        - American
-        - Frech
+        - VIETNAMESE
+        - CHINESE
+        - BRITISH
+        - AMERICAN
+        - FRENCH
     Language:
       type: string
       enum:
-        - Vietnamse
-        - Chinese
-        - English
-        - France
+        - VIETNAMESE
+        - CHINESE
+        - BRITISH
+        - AMERICAN
+        - FRENCH
+        - ENGLISH
     PersonalIdNumber:
       title: Personal ID number
       type: object
@@ -103,11 +105,14 @@ components:
       title: Completed the proram
       type: string
       enum:
-        - Secondary
-        - University
-        - Postgraduate
-        - Doctor
-      example: University
+        - ELEMENTARY_SCHOOL
+        - MIDDLE_SCHOOL
+        - HIGH_SCHOOL
+        - BACHELOR
+        - MASTER
+        - DOCTOR
+        - OTHER
+      example: OTHER
     Position:
       title: Position
       type: object
@@ -133,10 +138,10 @@ components:
         monk:
           type: string
           enum: 
-            - Khấn trọn
-            - Khấn tạm
-            - Nhà tập
-            - Dự tu
+           - SOLEMN_VOW # khấn trọn
+           - SIMPLE_VOW # khấn tạm
+           - NOVICE # dự tu
+           - PREPARATION # nhà tập
         parishioner:
           type: object
           properties:
@@ -149,12 +154,12 @@ components:
     Program:
       type: string
       enum:
-        - Cử Nhân
-        - Năm chuẩn bị (tín lý)
-        - Năm chuẩn bị (kinh thánh)
-        - Thạc sĩ thần học (tín lý)
-        - Thạc sĩ thần học (kinh thánh)
-        - Thạc sĩ mục vụ
+        - BACHELOR #Cử nhân
+        - YEAR_OF_PREPARATION_DOCMATIC #năm chuẩn bị tín lý
+        - YEAR_OF_PREPARATION_SCRIPTURES #năm chuẩn bị kinh thánh
+        - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
+        - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
+        - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
     
     PersonUpsert:
       title: PersonUpsert
