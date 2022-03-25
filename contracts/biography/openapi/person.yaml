@@ -37,7 +37,109 @@ paths:
         $ref: "#/components/requestBodies/PersonRequest"
       security:
         - person_auth: []
-
+  /query-api/person-service/persons:
+    get:
+      tags:
+        - person-query
+      summary: Get all persons
+      description: Return all persons
+      operationId: getPersons
+      parameters:
+        - in: query
+          name: firstName
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonViewCollection"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Student not found
+  /query-api/person-service/persons/{id}:
+    get:
+      tags:
+        - person
+      summary: Find person by ID
+      description: Returns a single person
+      operationId: get_person_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonView"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Person not found
+  /mutation-api/person-service/persons/{id}:
+    put:
+      tags:
+        - person
+      summary: Update an excisting person
+      description: ""
+      operationId: update_person
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonView"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Saint not found
+        "405":
+          description: Validation exception
+      requestBody:  
+        $ref: '#/components/requestBodies/PersonRequest'
+        security:
+        - saint_auth: []
+    delete:
+      tags:
+        - person
+      summary: Deletes a person
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Person not found
+      security:
+        - person_auth: []
 externalDocs:
   description: Find out more about Swagger
   url: "http://swagger.io"
@@ -113,44 +215,7 @@ components:
         - DOCTOR
         - OTHER
       example: OTHER
-    Position:
-      title: Position
-      type: object
-      properties: 
-        pastor:
-          type: object
-          properties:
-            diocese:
-              type: string
-              example: Xuan loc
-            order:
-              type: string
-              example: Da minh
-        seminarian:
-          type: object
-          properties:
-            diocese:
-              type: string
-              example: Xuan loc
-            order:
-              type: string
-              example: Da minh
-        monk:
-          type: string
-          enum: 
-           - SOLEMN_VOW # khấn trọn
-           - SIMPLE_VOW # khấn tạm
-           - NOVICE # dự tu
-           - PREPARATION # nhà tập
-        parishioner:
-          type: object
-          properties:
-            diocese:
-              type: string
-              example: Xuan loc
-            parish:
-              type: string
-              example: Doc mo
+
     Program:
       type: string
       enum:
@@ -160,7 +225,7 @@ components:
         - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
         - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
         - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
-    
+
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -181,7 +246,7 @@ components:
         dateOfBirth:
           type: string
           format: date
-          example: 1983-05-16
+          example: "1983-05-16"
           description: date of birth in format YYYY-MM-DD
         placeOfBirth:
           type: string
@@ -204,14 +269,48 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PersonalIdNumber"
-        language: 
-          $ref: '#/components/schemas/Language'
+        language:
+          $ref: "#/components/schemas/Language"
         completedProgram:
           $ref: "#/components/schemas/CompletedProgram"
         position:
-          $ref: '#/components/schemas/Position'
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              enum:
+                - PASTOR
+                - SEMINARIAN
+                - MONK
+                - PARISHIONER
+              example: PASTOR
+            diocese:
+              type: string
+              nullable: true
+              example: "Xuan Loc"
+            order:
+              type: string
+              nullable: true
+              example: "Da Minh"
+            period:
+              type: string
+              nullable: true
+              enum:
+                - FULL_VOW
+                - TEMPORARY_VOW
+                - NOVICE
+                - PREPARATION
+                - null
+              example: null
+            parish:
+              type: string
+              nullable: true
+              example: null
+
         program:
-          $ref: '#/components/schemas/Program'
+          $ref: "#/components/schemas/Program"
       xml:
         name: person
 
@@ -243,6 +342,7 @@ components:
         phone:
           type: string
           example: +84 1228019700
+
         personalIdNumbers:
           type: array
           items:
