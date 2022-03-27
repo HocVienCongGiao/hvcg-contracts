@@ -116,7 +116,7 @@ paths:
           description: Validation exception
       requestBody:  
         $ref: '#/components/requestBodies/PersonRequest'
-        security:
+      security:
         - saint_auth: []
     delete:
       tags:
@@ -185,7 +185,6 @@ components:
       enum:
         - VIETNAMESE
         - CHINESE
-        - AMERICAN
         - FRENCH
         - ENGLISH
     PersonalIdNumber:
@@ -257,9 +256,12 @@ components:
         lastName:
           type: string
           example: Nguyen
-        saintName:
-          type: string
-          example: Giuse
+        saintIdArray:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 40e6215d-b5c6-4896-987c-f30f3678f608
         dateOfBirth:
           type: string
           format: date
@@ -317,11 +319,10 @@ components:
               type: string
               nullable: true
               enum:
-                - FULL_VOW
-                - TEMPORARY_VOW
-                - NOVICE
-                - PREPARATION
-                - null
+                - SOLEMN_VOW # khấn trọn
+                - SIMPLE_VOW # khấn tạm
+                - NOVICE # dự tu
+                - PREPARATION # nhà tập
               example: null
             parish:
               type: string
