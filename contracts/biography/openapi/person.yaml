@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: 'https://{env}-sg.portal.hocvienconggiao.com'
+  - url: "https://{env}-sg.portal.hocvienconggiao.com"
     variables:
       env:
         enum:
@@ -13,7 +13,7 @@ info:
   title: OpenAPI person info
   license:
     name: Apache-2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
   - name: person
     description: Everything about your persons
@@ -25,22 +25,124 @@ paths:
       summary: Create a new person
       operationId: addPerson
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PersonUpsert'
-        '405':
+                $ref: "#/components/schemas/PersonUpsert"
+        "405":
           description: Invalid input
       requestBody:
+        $ref: "#/components/requestBodies/PersonRequest"
+      security:
+        - person_auth: []
+  /query-api/person-service/persons:
+    get:
+      tags:
+        - person-query
+      summary: Get all persons
+      description: Return all persons
+      operationId: getPersons
+      parameters:
+        - in: query
+          name: firstName
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonViewCollection"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Student not found
+  /query-api/person-service/persons/{id}:
+    get:
+      tags:
+        - person
+      summary: Find person by ID
+      description: Returns a single person
+      operationId: get_person_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonView"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Person not found
+  /mutation-api/person-service/persons/{id}:
+    put:
+      tags:
+        - person
+      summary: Update an excisting person
+      description: ""
+      operationId: update_person
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonView"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Saint not found
+        "405":
+          description: Validation exception
+      requestBody:  
         $ref: '#/components/requestBodies/PersonRequest'
       security:
-        - person_auth: [ ]
-
+        - saint_auth: []
+    delete:
+      tags:
+        - person
+      summary: Deletes a person
+      description: ''
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Person not found
+      security:
+        - person_auth: []
 externalDocs:
   description: Find out more about Swagger
-  url: 'http://swagger.io'
+  url: "http://swagger.io"
 components:
   requestBodies:
     PersonArray:
@@ -49,14 +151,14 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/PersonUpsert'
+              $ref: "#/components/schemas/PersonUpsert"
       description: List of person object
       required: true
     PersonRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PersonUpsert'
+            $ref: "#/components/schemas/PersonUpsert"
       description: person object that needs to be added to the database
       required: true
   securitySchemes:
@@ -73,25 +175,72 @@ components:
     Nationality:
       type: string
       enum:
-        - Vietnamese
-        - Chinese
-        - British
-        - American
-        - Frech
+        - VIETNAMESE
+        - CHINESE
+        - BRITISH
+        - AMERICAN
+        - FRENCH
+    Language:
+      type: string
+      enum:
+        - VIETNAMESE
+        - CHINESE
+        - FRENCH
+        - ENGLISH
     PersonalIdNumber:
       title: Personal ID number
       type: object
       properties:
         idNumber:
           type: string
-          example: 099005014079
+          example: 099005014120
         idNumberProvider:
-          $ref: '#/components/schemas/IdNumberProvider'
+          $ref: "#/components/schemas/IdNumberProvider"
         dateOfIssue:
           type: string
           format: date
         placeOfIssue:
           type: string
+    
+    EducationalLevel:
+      type: string
+      enum:
+        - ELEMENTARY_SCHOOL
+        - MIDDLE_SCHOOL
+        - HIGH_SCHOOL
+        - BACHELOR
+        - MASTER
+        - DOCTOR
+        - OTHER
+    EducationalStage:
+      type: object
+      properties:
+        educationalLevel:
+          $ref: '#/components/schemas/EducationalLevel'
+        schoolName:
+          type: string
+          example: Dai Chung Vien Thanh Quy - Can Tho
+        major:
+          type: string
+          example: Than hoc
+        graduateYear:
+          type: number
+          format: integer
+          example: 2010
+      required:
+        - educationalLevel
+        - schoolName
+    
+
+    Program:
+      type: string
+      enum:
+        - BACHELOR #Cử nhân
+        - YEAR_OF_PREPARATION_DOCMATIC #năm chuẩn bị tín lý
+        - YEAR_OF_PREPARATION_SCRIPTURES #năm chuẩn bị kinh thánh
+        - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
+        - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
+        - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
 
     PersonUpsert:
       title: PersonUpsert
@@ -107,10 +256,16 @@ components:
         lastName:
           type: string
           example: Nguyen
+        saintIdArray:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 40e6215d-b5c6-4896-987c-f30f3678f608
         dateOfBirth:
           type: string
           format: date
-          example: 1983-05-16
+          example: "1983-05-16"
           description: date of birth in format YYYY-MM-DD
         placeOfBirth:
           type: string
@@ -125,16 +280,60 @@ components:
           type: string
           example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
         nationality:
-          $ref: '#/components/schemas/Nationality'
+          $ref: "#/components/schemas/Nationality"
         race:
           type: string
           example: Kinh
         personalIdNumbers:
           type: array
           items:
-            $ref: '#/components/schemas/PersonalIdNumber'
+            $ref: "#/components/schemas/PersonalIdNumber"
+        language:
+          $ref: "#/components/schemas/Language"
+        educationStage:
+          type: array
+          items:
+            $ref: "#/components/schemas/EducationStage"
+        position:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              enum:
+                - PASTOR
+                - SEMINARIAN
+                - MONK
+                - PARISHIONER
+              example: PASTOR
+            diocese:
+              type: string
+              nullable: true
+              example: "Xuan Loc"
+            order:
+              type: string
+              nullable: true
+              example: "Da Minh"
+            period:
+              type: string
+              nullable: true
+              enum:
+                - SOLEMN_VOW # khấn trọn
+                - SIMPLE_VOW # khấn tạm
+                - NOVICE # dự tu
+                - PREPARATION # nhà tập
+              example: null
+            parish:
+              type: string
+              nullable: true
+              example: null
+
+        program:
+          $ref: "#/components/schemas/Program"
       xml:
         name: person
+
     PersonView:
       title: PersonView
       description: Person View
@@ -163,10 +362,11 @@ components:
         phone:
           type: string
           example: +84 1228019700
+
         personalIdNumbers:
           type: array
           items:
-            $ref: '#/components/schemas/PersonalIdNumber'
+            $ref: "#/components/schemas/PersonalIdNumber"
 
       xml:
         name: person-view
@@ -177,7 +377,7 @@ components:
         persons:
           type: array
           items:
-            $ref: '#/components/schemas/PersonView'
+            $ref: "#/components/schemas/PersonView"
         hasMore:
           type: boolean
         total:
@@ -185,4 +385,4 @@ components:
           format: int64
 
 security:
-  - person_auth: [ ]
+  - person_auth: []
