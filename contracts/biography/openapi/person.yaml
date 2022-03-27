@@ -185,7 +185,6 @@ components:
       enum:
         - VIETNAMESE
         - CHINESE
-        - BRITISH
         - AMERICAN
         - FRENCH
         - ENGLISH
@@ -203,8 +202,8 @@ components:
           format: date
         placeOfIssue:
           type: string
-    CompletedProgram:
-      title: Completed the proram
+    
+    EducationalLevel:
       type: string
       enum:
         - ELEMENTARY_SCHOOL
@@ -214,7 +213,25 @@ components:
         - MASTER
         - DOCTOR
         - OTHER
-      example: OTHER
+    EducationalStage:
+      type: object
+      properties:
+        educationalLevel:
+          $ref: '#/components/schemas/EducationalLevel'
+        schoolName:
+          type: string
+          example: Dai Chung Vien Thanh Quy - Can Tho
+        major:
+          type: string
+          example: Than hoc
+        graduateYear:
+          type: number
+          format: integer
+          example: 2010
+      required:
+        - educationalLevel
+        - schoolName
+    
 
     Program:
       type: string
@@ -271,8 +288,10 @@ components:
             $ref: "#/components/schemas/PersonalIdNumber"
         language:
           $ref: "#/components/schemas/Language"
-        completedProgram:
-          $ref: "#/components/schemas/CompletedProgram"
+        educationStage:
+          type: array
+          items:
+            $ref: "#/components/schemas/EducationStage"
         position:
           type: object
           required:
