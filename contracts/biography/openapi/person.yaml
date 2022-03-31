@@ -9,6 +9,9 @@ servers:
         default: dev
 
 info:
+  description: >-
+    This is a sample server Person info server. For this sample, you can use the api key
+    `special-key` to test the authorization filters.
   version: 0.1.0
   title: OpenAPI person info
   license:
@@ -40,7 +43,7 @@ paths:
   /mutation-api/person-service/persons/{id}:
     put:
       tags:
-        - person
+        - person-mutation
       summary: Update an excisting person
       description: ""
       operationId: update_person
@@ -71,7 +74,7 @@ paths:
         - person_auth: []
     delete:
       tags:
-        - person
+        - person-mutation
       summary: Deletes a person
       description: ""
       parameters:
@@ -158,7 +161,7 @@ paths:
   /query-api/person-service/persons/{id}:
     get:
       tags:
-        - person
+        - person-query
       summary: Find person by ID
       description: Returns a single person
       operationId: get_person_by_id
