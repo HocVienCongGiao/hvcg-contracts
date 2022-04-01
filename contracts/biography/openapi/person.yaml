@@ -295,6 +295,14 @@ components:
         - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
         - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
         - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
+    PositionLevel:
+      type: string
+      enum:
+        - PASTOR
+        - SEMINARIAN
+        - MONK
+        - PARISHIONER
+
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -354,12 +362,7 @@ components:
           properties:
             name:
               type: string
-              enum:
-                - PASTOR
-                - SEMINARIAN
-                - MONK
-                - PARISHIONER
-              example: PASTOR
+              $ref: "#/components/schemas/PositionLevel"
             diocese:
               type: string
               nullable: true
