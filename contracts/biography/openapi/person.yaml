@@ -157,11 +157,6 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-<<<<<<< Updated upstream
-          description: Student not found
-  /query-api/person-service/persons/{id}:
-    get:
-=======
           description: Saint not found
         "405":
           description: Validation exception
@@ -170,7 +165,6 @@ paths:
       security:
         - person_auth: []
     delete:
->>>>>>> Stashed changes
       tags:
         - person-query
       summary: Find person by ID
