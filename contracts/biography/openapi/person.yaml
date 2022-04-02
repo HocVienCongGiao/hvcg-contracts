@@ -157,14 +157,14 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Saint not found
+          description: Person not found
         "405":
           description: Validation exception
-      requestBody:  
-        $ref: '#/components/requestBodies/PersonRequest'
       security:
         - person_auth: []
-    delete:
+    
+  /query-api/person-service/persons/{id}:  
+    get:
       tags:
         - person-query
       summary: Find person by ID
@@ -300,6 +300,14 @@ components:
         - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
         - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
         - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
+    PositionLevel:
+      type: string
+      enum:
+        - PASTOR
+        - SEMINARIAN
+        - MONK
+        - PARISHIONER
+
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -359,12 +367,7 @@ components:
           properties:
             name:
               type: string
-              enum:
-                - PASTOR
-                - SEMINARIAN
-                - MONK
-                - PARISHIONER
-              example: PASTOR
+              $ref: "#/components/schemas/PositionLevel"
             diocese:
               type: string
               nullable: true
