@@ -157,8 +157,13 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Student not found
-  /query-api/person-service/persons/{id}:
+          description: Person not found
+        "405":
+          description: Validation exception
+      security:
+        - person_auth: []
+    
+  /query-api/person-service/persons/{id}:  
     get:
       tags:
         - person-query
@@ -179,7 +184,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PersonView"
+                $ref: "#/components/schemas/PersonUpsert"
         "400":
           description: Invalid ID supplied
         "404":
