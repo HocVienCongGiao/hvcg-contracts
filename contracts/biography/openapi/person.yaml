@@ -65,7 +65,7 @@ paths:
         "400":
           description: Invalid ID supplied
         "404":
-          description: Saint not found
+          description: Person not found
         "405":
           description: Validation exception
       requestBody:
@@ -77,6 +77,7 @@ paths:
         - person-mutation
       summary: Deletes a person
       description: ""
+      operationId: delete_person
       parameters:
         - name: id
           in: path
