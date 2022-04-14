@@ -357,7 +357,8 @@ components:
             $ref: "#/components/schemas/PersonalIdNumber"
         language:
           type: array
-          $ref: "#/components/schemas/Language"
+          items: 
+            $ref: "#/components/schemas/Language"
         educationStage:
           type: array
           items:
