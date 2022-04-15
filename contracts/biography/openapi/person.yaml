@@ -262,7 +262,7 @@ components:
             - LATIN
           example: ENGLISH
         level:
-          $ref: '#/components/schemas/EducationalLevel'
+          $ref: '#/components/schemas/ForeignLanguageLevel'
     PersonalIdNumber:
       title: Personal ID number
       type: object
