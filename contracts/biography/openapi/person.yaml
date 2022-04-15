@@ -243,13 +243,26 @@ components:
         - BRITISH
         - AMERICAN
         - FRENCH
-    Language:
+    ForeignLanguageLevel:
       type: string
       enum:
-        - VIETNAMESE
-        - CHINESE
-        - FRENCH
-        - ENGLISH
+        - BEGINNER
+        - INTERMEDIATE
+        - ADVANCED
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - VIETNAMESE
+            - CHINESE
+            - FRENCH
+            - ENGLISH
+            - LATIN
+          example: ENGLISH
+        level:
+          $ref: '#/components/schemas/EducationalLevel'
     PersonalIdNumber:
       title: Personal ID number
       type: object
