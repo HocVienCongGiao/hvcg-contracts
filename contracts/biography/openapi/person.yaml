@@ -372,7 +372,7 @@ components:
             - name
           properties:
             name:
-              $ref: "#/components/schemas/Tittle"
+              $ref: "#/components/schemas/Title"
             diocese:
               type: string
               nullable: true
