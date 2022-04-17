@@ -353,7 +353,7 @@ components:
           $ref: "#/components/schemas/Nationality"
         race:
           type: string
-          example: Kinh
+          example: "Kinh"
         personalIdNumbers:
           type: array
           items:
@@ -375,7 +375,6 @@ components:
               $ref: "#/components/schemas/Title"
             diocese:
               type: string
-              nullable: true
               example: "Xuan Loc"
             period:
               type: string
@@ -388,8 +387,6 @@ components:
               example: NOVICE
             parish:
               type: string
-              nullable: true
-              example: null
       xml:
         name: person
     PersonView:
