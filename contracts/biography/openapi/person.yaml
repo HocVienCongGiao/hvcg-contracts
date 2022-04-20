@@ -311,7 +311,13 @@ components:
         - PRIEST
         - MONK
         - NUN
-
+    VowProgress:
+      type: string
+      enum:
+        - SOLEMN_VOW # khấn trọn
+        - SIMPLE_VOW # khấn tạm
+        - NOVICE # dự tu
+        - PREPARATION # nhà tập
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -377,13 +383,7 @@ components:
               type: string
               example: "Xuan Loc"
             period:
-              type: string
-              enum:
-                - SOLEMN_VOW # khấn trọn
-                - SIMPLE_VOW # khấn tạm
-                - NOVICE # dự tu
-                - PREPARATION # nhà tập
-              example: NOVICE
+              $ref: "#/components/schemas/VowProgress"
             parish:
               type: string
       xml:
