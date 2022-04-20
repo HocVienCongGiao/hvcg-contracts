@@ -378,7 +378,6 @@ components:
               example: "Xuan Loc"
             period:
               type: string
-              nullable: true
               enum:
                 - SOLEMN_VOW # khấn trọn
                 - SIMPLE_VOW # khấn tạm
