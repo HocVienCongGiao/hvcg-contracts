@@ -379,13 +379,11 @@ components:
           properties:
             name:
               $ref: "#/components/schemas/Title"
-            diocese:
-              type: string
-              example: "Xuan Loc"
             period:
               $ref: "#/components/schemas/VowProgress"
             parish:
               type: string
+              format: uuid
       xml:
         name: person
     PersonView:
