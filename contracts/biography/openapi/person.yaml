@@ -243,13 +243,26 @@ components:
         - BRITISH
         - AMERICAN
         - FRENCH
-    Language:
+    ForeignLanguageLevel:
       type: string
       enum:
-        - VIETNAMESE
-        - CHINESE
-        - FRENCH
-        - ENGLISH
+        - BEGINNER
+        - INTERMEDIATE
+        - ADVANCED
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - VIETNAMESE
+            - CHINESE
+            - FRENCH
+            - ENGLISH
+            - LATIN
+          example: ENGLISH
+        level:
+          $ref: '#/components/schemas/ForeignLanguageLevel'
     PersonalIdNumber:
       title: Personal ID number
       type: object
@@ -292,23 +305,19 @@ components:
       required:
         - educationalLevel
         - schoolName
-    Program:
+    Title:
       type: string
       enum:
-        - BACHELOR #Cử nhân
-        - YEAR_OF_PREPARATION_DOCMATIC #năm chuẩn bị tín lý
-        - YEAR_OF_PREPARATION_SCRIPTURES #năm chuẩn bị kinh thánh
-        - MASTER_THEOLOGY_DOGMATIC # thạc sĩ thần học tín lý
-        - MASTER_THEOLOGY_SCRIPTURES # thạc sĩ thần học kinh thánh
-        - MASTER_OF_ARTS_IN_MINISTRY # thạc sĩ mục vụ
-    PositionLevel:
-      type: string
-      enum:
-        - PASTOR
-        - SEMINARIAN
+        - PRIEST
         - MONK
-        - PARISHIONER
-
+        - NUN
+    VowProgress:
+      type: string
+      enum:
+        - SOLEMN_VOW # khấn trọn
+        - SIMPLE_VOW # khấn tạm
+        - NOVICE # dự tu
+        - PREPARATION # nhà tập
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -350,14 +359,14 @@ components:
           $ref: "#/components/schemas/Nationality"
         race:
           type: string
-          example: Kinh
+          example: "Kinh"
         personalIdNumbers:
           type: array
           items:
             $ref: "#/components/schemas/PersonalIdNumber"
         language:
           type: array
-          items: 
+          items:
             $ref: "#/components/schemas/Language"
         educationStage:
           type: array
@@ -369,32 +378,12 @@ components:
             - name
           properties:
             name:
-              type: string
-              $ref: "#/components/schemas/PositionLevel"
-            diocese:
-              type: string
-              nullable: true
-              example: "Xuan Loc"
-            order:
-              type: string
-              nullable: true
-              example: "Da Minh"
+              $ref: "#/components/schemas/Title"
             period:
-              type: string
-              nullable: true
-              enum:
-                - SOLEMN_VOW # khấn trọn
-                - SIMPLE_VOW # khấn tạm
-                - NOVICE # dự tu
-                - PREPARATION # nhà tập
-              example: null
+              $ref: "#/components/schemas/VowProgress"
             parish:
               type: string
-              nullable: true
-              example: null
-
-        program:
-          $ref: "#/components/schemas/Program"
+              format: uuid
       xml:
         name: person
     PersonView:
