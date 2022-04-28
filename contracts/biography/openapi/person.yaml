@@ -414,11 +414,40 @@ components:
         phone:
           type: string
           example: +84 1228019700
-
         personalIdNumbers:
           type: array
           items:
             $ref: "#/components/schemas/PersonalIdNumber"
+        christianName:
+          type: string
+          example: Phero
+        title:
+          $ref: '#/components/schemas/Title'
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Language"
+        educationStages:
+          type: array
+          items:
+            $ref: "#/components/schemas/EducationalStage"
+        position:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              $ref: "#/components/schemas/Title"
+            period:
+              $ref: "#/components/schemas/VowProgress"
+            parish:
+              type: string
+              format: uuid
+        nationality:
+          $ref: "#/components/schemas/Nationality"
+        race:
+          type: string
+          example: "Kinh"
 
       xml:
         name: person-view
