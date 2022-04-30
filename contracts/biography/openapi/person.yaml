@@ -414,6 +414,9 @@ components:
         phone:
           type: string
           example: +84 1228019700
+        address:
+          type: string
+          example: 1000 CMT8 p5 q.Tân Bình, TP.HCM
         personalIdNumbers:
           type: array
           items:
@@ -421,8 +424,6 @@ components:
         christianName:
           type: string
           example: Phero
-        title:
-          $ref: '#/components/schemas/Title'
         languages:
           type: array
           items:
