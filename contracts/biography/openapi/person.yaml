@@ -318,24 +318,6 @@ components:
         - SIMPLE_VOW # khấn tạm
         - NOVICE # dự tu
         - PREPARATION # nhà tập
-    Polity:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          example: Dong Thanh The
-        locationName:
-          type: string
-          example: Dong Thanh The Viet Nam
-        locationAddress:
-          type: string
-          example: 123 Cach Mang
-        locationEmail:
-          type: string
-          example: info@gmail.com
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -461,8 +443,9 @@ components:
               $ref: "#/components/schemas/Title"
             period:
               $ref: "#/components/schemas/VowProgress"
-            polity:
-              $ref: "#/components/schemas/Polity"
+            polityId:
+              type: string
+              format: uuid
         nationality:
           $ref: "#/components/schemas/Nationality"
         race:
