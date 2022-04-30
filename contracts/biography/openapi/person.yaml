@@ -461,8 +461,8 @@ components:
               $ref: "#/components/schemas/Title"
             period:
               $ref: "#/components/schemas/VowProgress"
-            polity:
-              $ref: "#/components/schemas/Polity"
+        polity:
+          $ref: "#/components/schemas/Polity"
         nationality:
           $ref: "#/components/schemas/Nationality"
         race:
