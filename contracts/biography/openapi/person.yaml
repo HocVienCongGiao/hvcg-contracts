@@ -318,24 +318,6 @@ components:
         - SIMPLE_VOW # khấn tạm
         - NOVICE # dự tu
         - PREPARATION # nhà tập
-    Polity:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          example: Dong Thanh The
-        locationName:
-          type: string
-          example: Dong Thanh The Viet Nam
-        locationAddress:
-          type: string
-          example: 123 Cach Mang
-        locationEmail:
-          type: string
-          example: info@gmail.com
     PersonUpsert:
       title: PersonUpsert
       description: Person info
@@ -350,8 +332,6 @@ components:
         lastName:
           type: string
           example: Nguyen
-        isMale:
-          type: boolean
         saintIdArray:
           type: array
           items:
@@ -469,8 +449,6 @@ components:
         race:
           type: string
           example: "Kinh"
-        isMale:
-          type: boolean
 
       xml:
         name: person-view
